@@ -1,27 +1,77 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-Make a GBT Catalog for the Pilot Survey field centered on 29.5 degrees galactic longitude and extending +/- 0.5 degrees in latitude.
-Half the map will be done in blocks, half in stripes. 
+Make a GBT Catalog for the Pilot Survey fields
+
+Specify a central position in galactic longitude
+The map will extend +/- 0.5 degrees in latitude
+Half the map will be done in blocks, half in stripes
+
+-d : Directory   -- Name of directory into which to save files
+-p : Position    -- Central position of map in Galactic longitude
+-s : Scripts     -- Make scripts for this position
+-c : Catalog     -- Make a catlog and visualization
+-h : Help        -- Display this help 
 """
 
-import sys
-import os
+import sys,os,getopt
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from string import Template
 
 def main():
-    make_catalog()
-    make_scripts()
+    try:
+        opts,args = getopt.getopt(sys.argv[1:],"d:p:sch")
+    except getopt.GetoptError,err:
+        print(str(err))
+        print(__doc__)
+        sys.exit(2)
+    do_scripts = False
+    do_catalog = False
+    position = None
+    dir_name = None
+    for o,a in opts:
+        if o == "-d":
+            dir_name = a
+        elif o == "-p":
+            position = a
+        elif o == "-s":
+            do_scripts = True
+        elif o == "-c":
+            do_catalog = True
+        elif o == "-h":
+            print(__doc__)
+            sys.exit(1)
+        else:
+            assert False, "unhandled option"
+            print(__doc__)
+            sys.exit(2)
+    if not position:
+        print("")
+        print(">>> Must specify a central position <<<")
+        print(__doc__)
+        sys.exit(2)
+    if not dir_name:
+        print("No output directory specified...")
+        dir_name = "pilot_"+str(round(float(position),1))+"_dir"
+        print("Using "+dir_name)
+    try:
+        os.mkdir(dir_name)
+    except OSError:
+        pass
+    
+    if do_catalog:
+        make_catalog(float(position),dir_name)
+    if do_scripts:
+        make_scripts(float(position),dir_name)
 
-def make_scripts():
-    ff = open('Pilot_Sources.cat','r')
+def make_scripts(position,dir_name):
+    ff = open(dir_name+'/Pilot_Sources.cat','r')
     all_lines = ff.readlines()
     tile_template = Template(tt)
     strip_template = Template(ts)
-    
+        
     point_str = """# Astrid script to point near a maser source
 # HISTORY
 # 10SEP02 GIL do not reconfigure before the pointing obs
@@ -40,11 +90,11 @@ AutoPeakFocus(location=mySource, flux=1.5, configure=False)
             off = all_lines[i+1].split(' ')[0]
             d = {"point_pos":"G030p00","off_pos":off,"map_pos":name}
             output = tile_template.substitute(d)
-            gg= open("map"+name,'w')
+            gg= open(dir_name+"/map"+name,'w')
             print >>gg,output
             gg.close()
             point_out = point_temp.substitute(d)
-            gg= open("peak"+name,'w')
+            gg= open(dir_name+"/peak"+name,'w')
             print >>gg,point_out
             gg.close()
             
@@ -53,17 +103,17 @@ AutoPeakFocus(location=mySource, flux=1.5, configure=False)
             off = all_lines[i+1].split(' ')[0]
             d = {"point_pos":"G030p00","off_pos":off,"map_pos":name}
             output = strip_template.substitute(d)
-            gg= open("map"+name,'w')
+            gg= open(dir_name+"/map"+name,'w')
             print >>gg,output
             gg.close()
             point_out = point_temp.substitute(d)
-            gg= open("peak"+name,'w')
+            gg= open(dir_name+"/peak"+name,'w')
             print >>gg,point_out
             gg.close()
             
             
     
-def make_catalog():
+def make_catalog(position,dir_name):
     """ Make a catalog file describing the centers of all maps. """
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -75,8 +125,11 @@ def make_catalog():
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
     i = 1
+        
+    glon_min = position-0.375
+    glon_max = position+0.375
     for glat in np.arange(-0.05,0.35,.195):
-        for glon in np.arange(29.875,29.125,-0.245):
+        for glon in np.arange(glon_max,glon_min,-0.245):
             map_string = "Pilot_Tiles"+str(i).zfill(2)+" GALACTIC "+\
                           str(glon)+" "+str(glat)+" 50.0"
             off_string = "Pilot_TiOFF"+str(i).zfill(2)+" GALACTIC "+\
@@ -95,7 +148,7 @@ def make_catalog():
                 #Do some Strips 1 degree x 0.058 degree (7 strips)
                 #Offset would be -0.058 for best practice. Inclue 0.05 degree overlap
                 for glat2 in np.arange(0,-0.41,-0.053):
-                    for glon2 in [29.5]:
+                    for glon2 in [position]:
                         map_string = "Pilot_Strip"+str(i).zfill(2)+" GALACTIC "+\
                                       str(glon2)+" "+str(glat2)+" 50.0"
                         off_string = "Pilot_StOFF"+str(i).zfill(2)+" GALACTIC "+\
@@ -113,14 +166,14 @@ def make_catalog():
         ax.add_patch(patch)
    # rect = Rectangle((0.0120,0),0.1,1000)
     #ax.add_patch(rect)
-    ax.set_xlim(30.1,28.9)
+    ax.set_xlim(position+0.6,position-0.6)
     ax.set_ylim(-0.5,0.5)
     plt.ylabel("GLat (deg)")
     plt.xlabel("GLon (deg)")
-    fig.savefig("PilotPositions.pdf")
+    fig.savefig(dir_name+"/PilotPositions.pdf")
     #plt.show()
     fullstring = fullstring[0:-1]
-    fff = open("Pilot_Sources.cat",'w')
+    fff = open(dir_name+"/Pilot_Sources.cat",'w')
     print >>fff,fullstring
     fff.close()
                  
