@@ -64,11 +64,11 @@ AutoPeakFocus(location=mySource, flux=1.5, configure=False)
             
     
 def make_catalog():
-    """Just write to screen."""
+    """ Make a catalog file describing the centers of all maps. """
     fig = plt.figure()
     ax = fig.add_subplot(111)
     all_patches = []
-    fullstring = catalog_template_1
+    fullstring = ""
     
     fullstring += "G030p00 GALACTIC 30.0 0.0 50.0\n"
     
@@ -119,7 +119,7 @@ def make_catalog():
     plt.xlabel("GLon (deg)")
     fig.savefig("PilotPositions.pdf")
     #plt.show()
-    fullstring = fullstring[0:-1]+catalog_template_2
+    fullstring = fullstring[0:-1]
     fff = open("Pilot_Sources.cat",'w')
     print >>fff,fullstring
     fff.close()
