@@ -1,0 +1,41 @@
+
+#Example Map Astrid script using the KFPA
+#HISTORY 
+# 11FEB04 GIL clean up comments
+
+#First put in your sources
+execfile("/home/astro-util/projects/11B030/Pilot_Sources.cat")
+
+#define procedures with scan anotations for the pipeline
+execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
+
+target = "G030p00"  # define location of peak emission, for test, not mapping
+off = "Pilot_TiOFF01" # define a map reference location, with no emission
+
+Slew( target)
+#Check the levels are correct
+Break("Balance IF-Rack and Spectrometer")
+
+#Perform the Target source observation; then check spectra
+TargetTrack( target, None, 30.0, "1")
+#perform a position switched reference location obs.
+OffTrack( off, None, 30.0, "1")
+
+#To map at maximum antenna rate, turn of Cal Blinking (optional)
+execfile("/home/astro-util/projects/TKFPA/configNoCal")
+
+#Tell Pipeline that mapping is starting
+SetValues("ScanCoordinator",{"scanId":"Map"})
+mapTarget='Pilot_Tiles01'                # The map center is often not the peak location
+RALongMap( mapTarget, 
+	   Offset("Galactic", 0.25, 0.0), # This is a galactic coordinate map
+	   Offset("Galactic", 0.0, 0.20), 
+	   Offset("Galactic", 0.0, 0.008), 
+	   120.0, "1")
+
+#Turn cals back on for calibration scan, only if they were turned off, above.
+execfile("/home/astro-util/projects/TKFPA/configCal")
+
+#perform the final position switched reference obs
+OffTrack( off, None, 30.0, "1")
+
