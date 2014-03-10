@@ -8,14 +8,14 @@ beam      = '1,2,3,4,5,6,7'           # use seven beams (KFPA)
 obstype   = 'Spectroscopy'
 backend   = 'VEGAS'
 nwin      = 8                         # eight spectral windows
-restfreq  = {23694.50:'1,2,3,4,5,6,7',# line frequencies
-            23722.63:'1,2,3,4,5,6,7', # NH3,CH3OH and HC5N 
-            23870.13:'1,2,3,4,5,6,7', # in beams 1-7
-            24139.42:'1,2,3,4,5,6,7', # H2O in beam 8
-            24.53299:'1,2,3,4,5,6,7', 
-            23444.78:'1,2,3,4,5,6,7',
-            23.96390:'1,2,3,4,5,6,7', 
-            22235.08:'1',
+restfreq  = {23694.50:'1,2,3,4,5,6,7', # line frequencies
+             23722.63:'1,2,3,4,5,6,7', # NH3,CH3OH and HC5N 
+             23870.13:'1,2,3,4,5,6,7', # in beams 1-7
+             24139.42:'1,2,3,4,5,6,7', # H2O in beam 8
+             24532.99:'1,2,3,4,5,6,7', 
+             23444.78:'1,2,3,4,5,6,7',
+             23963.90:'1,2,3,4,5,6,7', 
+             22235.08:'1',
             "DopplerTrackFreq":23694.50} 
             
 bandwidth = 23.44                     # bandwidth (per window)

@@ -90,11 +90,11 @@ AutoPeakFocus(location=mySource, flux=1.5, configure=False)
             off = all_lines[i+1].split(' ')[0]
             d = {"point_pos":"G030p00","off_pos":off,"map_pos":name}
             output = tile_template.substitute(d)
-            gg= open(dir_name+"/map"+name,'w')
+            gg= open(dir_name+"/map"+name+".py",'w')
             print >>gg,output
             gg.close()
             point_out = point_temp.substitute(d)
-            gg= open(dir_name+"/peak"+name,'w')
+            gg= open(dir_name+"/peak"+name+".py",'w')
             print >>gg,point_out
             gg.close()
             
@@ -103,11 +103,11 @@ AutoPeakFocus(location=mySource, flux=1.5, configure=False)
             off = all_lines[i+1].split(' ')[0]
             d = {"point_pos":"G030p00","off_pos":off,"map_pos":name}
             output = strip_template.substitute(d)
-            gg= open(dir_name+"/map"+name,'w')
+            gg= open(dir_name+"/map"+name+".py",'w')
             print >>gg,output
             gg.close()
             point_out = point_temp.substitute(d)
-            gg= open(dir_name+"/peak"+name,'w')
+            gg= open(dir_name+"/peak"+name+".py",'w')
             print >>gg,point_out
             gg.close()
             
@@ -203,7 +203,8 @@ tt = """
 # 11FEB04 GIL clean up comments
 
 #First put in your sources
-execfile("/home/astro-util/projects/11B030/Pilot_Sources.cat")
+#execfile("/home/astro-util/projects/11B030/Pilot_Sources.cat")
+Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat)
 
 #define procedures with scan anotations for the pipeline
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
@@ -211,7 +212,8 @@ execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 target = "${point_pos}"  # define location of peak emission, for test, not mapping
 off = "${off_pos}" # define a map reference location, with no emission
 
-Slew( target)
+Slew(target)
+Balance(target)
 #Check the levels are correct
 Break("Balance IF-Rack and Spectrometer")
 
@@ -253,7 +255,8 @@ execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 target = "Pilot_Strip13"  # define location of peak emission, for test, not mapping
 off = "Pilot_StOFF13" # define a map reference location, with no emission
 
-Slew( target)
+Slew(target)
+Balance()
 #Check the levels are correct
 Break("Balance IF-Rack and Spectrometer")
 
