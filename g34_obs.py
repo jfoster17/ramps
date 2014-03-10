@@ -38,7 +38,7 @@ execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 # KFPA pipeline(?). Ex. in 10.7.
 Slew("G43")
 Balance()
-TargetTrack("G43", None, 30.0, "1")     # check spectra
+TargetTrack("G43-peak", None, 30.0, "1")     # check spectra
 OffTrack("G43-OFF", None, 30.0, "1")    # get off-source obs.
 SetValues("ScanCoordinator",{"scanId":"Map"})
 DecLatMap("G43",                        # center of map

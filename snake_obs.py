@@ -34,7 +34,7 @@ execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 # KFPA pipeline(?). Ex. in 10.7.
 Slew("snake")
 Balance()
-TargetTrack("snake", None, 30.0, "1")     # check spectra
+TargetTrack("snake-peak", None, 30.0, "1")     # check spectra
 OffTrack("snake-off", None, 30.0, "1")    # get off-source obs.
 SetValues("ScanCoordinator",{"scanId":"Map"})
 RALongMap("snake",                        # center of map
