@@ -1,9 +1,23 @@
-# Observing script: MAP of "snake".
+# Observing script: MAP of "IRDC43/G34.43".
 
 # Load catalog and configure VEGAS.
-c = Catalog("/home/astro-util/projects/XXXX/ramps_catalog-radec.txt")
-execfile("/home/astro-util/projects/XXXX/vegas_config.py")
-Configure("vegas_config")
+Catalog("/users/jfoster/ramps/ramps_catalog-radec.txt")
+
+# Point and focus before observing map.
+# See section 10.2 in observing manual.
+# Suggested interval is every 1-2 hours.
+
+#Simple configuration for auto-peak-focus
+execfile("/users/jfoster/ramps/vegas_config_simple.py")
+peak_source = "1845+0953"
+AutoPeakFocus(location=peak_source, flux=1.5, configure=False)
+
+
+##########  <<<< Do only one of these!!! >>>>> #########
+execfile("/users/jfoster/ramps/vegas_config.py")
+#execfile("/users/jfoster/ramps/vegas_config_simple.py")
+##########  <<<< Do only one of these!!! >>>>> #########
+Configure(vegas_config)
 
 # For KFPA pipeline, per 10.7.
 # Define procedures with scan annotations
