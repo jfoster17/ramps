@@ -203,7 +203,7 @@ tt = """
 #March 10, 2014 (JBF) Initial Version
 
 #First load our catalog
-Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat)
+Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat")
 
 #Configure VEGAS
 execfile("/home/astro-util/projects/13B312/vegas_config.py")
@@ -250,7 +250,7 @@ ts = """
 #March 10, 2014 (JBF) Initial Version
 
 #First load our catalog
-Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat)
+Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat")
 
 #Configure VEGAS
 execfile("/home/astro-util/projects/13B312/vegas_config.py")
