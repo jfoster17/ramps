@@ -15,6 +15,7 @@ restfreq  = {23694.50:'1,2,3,4,5,6,7', # line frequencies
              24532.99:'1,2,3,4,5,6,7', 
              23444.78:'1,2,3,4,5,6,7',
              23963.90:'1,2,3,4,5,6,7', 
+             23694.50:'1,2,3,4,5,6,7', #Duplicate NH3 (1-1)
             "DopplerTrackFreq":23694.50} 
 deltafreq = {23694.50:0,
            23722.63:0,
@@ -22,7 +23,9 @@ deltafreq = {23694.50:0,
            24139.42:0,
            24532.99:0,
            23444.78:0,
-           23963.90:0}
+           23963.90:0,
+           23694.50:0,
+           }
             
 bandwidth = 23.44                     # bandwidth (per window)
 nchan     = 'low'                     # 4096 channels = 0.07 km/s
@@ -42,6 +45,7 @@ vdef      = "Radio"
 noisecal  = "lo"
 pol       = "Circular"
 vegas.vpol = 'cross'
+broadband = 0
 """
 
 #23694.50 #NH3 (1-1)

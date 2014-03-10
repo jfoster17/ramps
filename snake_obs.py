@@ -2,17 +2,27 @@
 #
 # Load catalog and configure VEGAS.
 Catalog("/users/jfoster/ramps/ramps_catalog.txt")
+
+# Point and focus before observing map.
+# See section 10.2 in observing manual.
+# Suggested interval is every 1-2 hours.
+
+#Simple configuration for auto-peak-focus
 execfile("/users/jfoster/ramps/vegas_config_simple.py")
+peak_source = ""
+AutoPeakFocus(location=peak_source, flux=1.5, configure=False)
+
+
+##########  <<<< Do only one of these!!! >>>>> #########
+execfile("/users/jfoster/ramps/vegas_config.py")
+#execfile("/users/jfoster/ramps/vegas_config_simple.py")
+##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 
 # For KFPA pipeline, per 10.7.
 # Define procedures with scan annotations
 # and header values.
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
-
-# Point and focus before observing map.
-# See section 10.2 in observing manual.
-# Suggested interval is every 1-2 hours.
 
 # Recommended On/Off observation toward
 # strong spectral source at beginning
