@@ -2,8 +2,8 @@
 #
 # Load catalog and configure VEGAS.
 Catalog("/users/jfoster/ramps_catalog.txt")
-execfile("/users/jfoster/vegas_config.py")
-Configure("vegas_config_simple.py")
+execfile("/users/jfoster/vegas_config_simple.py")
+Configure(vegas_config)
 
 # For KFPA pipeline, per 10.7.
 # Define procedures with scan annotations

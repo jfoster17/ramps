@@ -45,7 +45,7 @@ swtype    = "none"                    # no frequency switching
 swper     = 0.5                       # one-half second cycle for switching
                                       # (default is swper = 1.0)
 swfreq    = 0.0, 0.0                  # for freq switching
-tint      = 5.0                       # integration time
+tint      = 1.0                       # integration time
 
 vlow      = -150
 vhigh     = 150
