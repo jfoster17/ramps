@@ -1,8 +1,8 @@
 # Observing script: MAP of "snake".
 #
 # Load catalog and configure VEGAS.
-Catalog("/users/jfoster/ramps_catalog.txt")
-execfile("/users/jfoster/vegas_config_simple.py")
+Catalog("/users/jfoster/ramps/ramps_catalog.txt")
+execfile("/users/jfoster/ramps/vegas_config_simple.py")
 Configure(vegas_config)
 
 # For KFPA pipeline, per 10.7.
