@@ -4,3 +4,4 @@ head = NAME    GLON      GLAT
 snake         11.148    -0.104     
 snake-off     11.11     -1.11
 1833-2103     12.166    -5.71
+sneak-peak    10.9902   -0.0842
