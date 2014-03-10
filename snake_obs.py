@@ -9,7 +9,7 @@ Catalog("/users/jfoster/ramps/ramps_catalog.txt")
 
 #Simple configuration for auto-peak-focus
 execfile("/users/jfoster/ramps/vegas_config_simple.py")
-peak_source = ""
+peak_source = "1833-2103"
 AutoPeakFocus(location=peak_source, flux=1.5, configure=False)
 
 
