@@ -41,9 +41,9 @@ Balance()
 TargetTrack("G43", None, 30.0, "1")     # check spectra
 OffTrack("G43-OFF", None, 30.0, "1")    # get off-source obs.
 SetValues("ScanCoordinator",{"scanId":"Map"})
-RALongMap("G43",                        # center of map
+DecLatMap("G43",                        # center of map
           Offset("J2000",.12,0.0),      # width of map
           Offset("J2000",0.0,.31),      # height of map
           Offset("J2000",0.0,0.008),    # vertical row spacing
           293)                          # seconds per row
-OffTrack("snake-off", None, 30.0, "1")
+OffTrack("G43-off", None, 30.0, "1")
