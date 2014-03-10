@@ -1,9 +1,9 @@
 # Observing script: MAP of "snake".
 #
 # Load catalog and configure VEGAS.
-c = Catalog("/home/astro-util/projects/XXXX/ramps_catalog.txt")
-execfile("/home/astro-util/projects/XXXX/vegas_config.py")
-Configure("vegas_config")
+Catalog("/users/jfoster/ramps/ramps_catalog.txt")
+execfile("/users/jfoster/ramps/vegas_config_simple.py")
+Configure(vegas_config)
 
 # For KFPA pipeline, per 10.7.
 # Define procedures with scan annotations
