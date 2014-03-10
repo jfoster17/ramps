@@ -43,7 +43,7 @@ OffTrack("G43-OFF", None, 30.0, "1")    # get off-source obs.
 SetValues("ScanCoordinator",{"scanId":"Map"})
 DecLatMap("G43",                        # center of map
           Offset("J2000",.12,0.0, cosv = True),      # width of map
-          Offset("J2000",0.0,.60, cosv = True),      # height of map
+          Offset("J2000",0.0,.30, cosv = True),      # height of map
           Offset("J2000",0.0,0.008, cosv = True),    # vertical row spacing
           293)                          # seconds per row
 OffTrack("G43-off", None, 30.0, "1")
