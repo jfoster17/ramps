@@ -1,5 +1,5 @@
 # Observing script: MAP of "snake".
-
+#
 # Load catalog and configure VEGAS.
 c = Catalog("/home/astro-util/projects/XXXX/ramps_catalog.txt")
 execfile("/home/astro-util/projects/XXXX/vegas_config.py")
