@@ -198,13 +198,16 @@ SetValues("LO1", {"tolerance": 10})
 '''
 
 tt = """
-#Example Map Astrid script using the KFPA
+#RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
-# 11FEB04 GIL clean up comments
+#March 10, 2014 (JBF) Initial Version
 
-#First put in your sources
-#execfile("/home/astro-util/projects/11B030/Pilot_Sources.cat")
+#First load our catalog
 Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat)
+
+#Configure VEGAS
+execfile("/home/astro-util/projects/13B312/vegas_config.py")
+Configure("vegas_config")
 
 #define procedures with scan anotations for the pipeline
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
@@ -242,12 +245,16 @@ OffTrack( off, None, 30.0, "1")
 """
      
 ts = """
-#Example Map Astrid script using the KFPA
+#RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
-# 11FEB04 GIL clean up comments
+#March 10, 2014 (JBF) Initial Version
 
-#First put in your sources
-execfile("/home/astro-util/projects/11B030/Pilot_Sources.cat")
+#First load our catalog
+Catalog("/home/astro-util/project/13B312/Pilot_Sources.cat)
+
+#Configure VEGAS
+execfile("/home/astro-util/projects/13B312/vegas_config.py")
+Configure("vegas_config")
 
 #define procedures with scan anotations for the pipeline
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
