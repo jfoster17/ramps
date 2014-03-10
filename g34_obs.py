@@ -1,9 +1,9 @@
 # Observing script: MAP of "snake".
-#
+
 # Load catalog and configure VEGAS.
-Catalog("/users/jfoster/ramps_catalog.txt")
-execfile("/users/jfoster/vegas_config.py")
-Configure("vegas_config_simple.py")
+c = Catalog("/home/astro-util/projects/XXXX/ramps_catalog-radec.txt")
+execfile("/home/astro-util/projects/XXXX/vegas_config.py")
+Configure("vegas_config")
 
 # For KFPA pipeline, per 10.7.
 # Define procedures with scan annotations
@@ -22,14 +22,14 @@ execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 # Use GBT standard mapping mode.
 # Incorporate tags/commands for
 # KFPA pipeline(?). Ex. in 10.7.
-Slew("snake")
+Slew("G43")
 Balance()
-TargetTrack("snake", None, 30.0, "1")     # check spectra
-OffTrack("snake-off", None, 30.0, "1")    # get off-source obs.
+TargetTrack("G43", None, 30.0, "1")     # check spectra
+OffTrack("G43-OFF", None, 30.0, "1")    # get off-source obs.
 SetValues("ScanCoordinator",{"scanId":"Map"})
-RALongMap("snake",                        # center of map
-          Offset("Galactic",0.41,0.0),    # width of map
-          Offset("Galactic",0.0,0.16),    # height of map
-          Offset("Galactic",0.0,0.008),   # vertical row spacing
-          196)                            # seconds per row
+RALongMap("G43",                        # center of map
+          Offset("J2000",.12,0.0),      # width of map
+          Offset("J2000",0.0,.31),      # height of map
+          Offset("J2000",0.0,0.008),    # vertical row spacing
+          293)                          # seconds per row
 OffTrack("snake-off", None, 30.0, "1")
