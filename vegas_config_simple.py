@@ -28,7 +28,7 @@ deltafreq = {23694.50:0,
            }
             
 bandwidth = 23.44                     # bandwidth (per window)
-nchan     = 'low'                     # 4096 channels = 0.07 km/s
+nchan     = 'medium'                     # 4096 channels = 0.07 km/s
 
 swmode    = "tp"                      # set position switching
 swtype    = "none"                    # no frequency switching
