@@ -9,6 +9,7 @@ Catalog("/home/astro-util/projects/13B312/ramps/ramps_catalog-radec.txt")
 
 #Simple configuration for auto-peak-focus
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
+Configure(vegas_config)
 peak_source = "1845+0953"
 AutoPeakFocus(location=peak_source, flux=1.5, configure=False)
 
