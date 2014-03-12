@@ -37,4 +37,3 @@ nosetests.xml
 
 # Mac
 .DS*
-.gitignore
