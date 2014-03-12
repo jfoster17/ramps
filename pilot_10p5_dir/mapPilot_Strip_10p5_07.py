@@ -13,8 +13,8 @@ Configure(vegas_config)
 AutoPeakFocus()
 
 ##########  <<<< Do only one of these!!! >>>>> #########
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
-#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
+#execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 
@@ -22,7 +22,7 @@ Configure(vegas_config)
 #define procedures with scan anotations for the pipeline
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
-target = "PointPos"  # define location of peak emission, for test, not mapping
+target = "pointpos"  # define location of peak emission, for test, not mapping
 off = "Pilot_StOFF_10p5_07" # define a map reference location, with no emission
 
 Slew(target)

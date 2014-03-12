@@ -15,8 +15,8 @@ AutoPeakFocus(location=peak_source, flux=1.5, configure=False)
 
 
 ##########  <<<< Do only one of these!!! >>>>> #########
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
-#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
+#execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 
@@ -46,6 +46,6 @@ SetValues("ScanCoordinator",{"scanId":"Map"})
 DecLatMap("G43",                        # center of map
           Offset("J2000",.12,0.0, cosv = True),      # width of map
           Offset("J2000",0.0,.30, cosv = True),      # height of map
-          Offset("J2000",0.0,0.008, cosv = True),    # vertical row spacing
-          293)                          # seconds per row
+          Offset("J2000",0.008,0.0, cosv = True),    # vertical row spacing
+          293.)                          # seconds per row
 OffTrack("G43-off", None, 30.0, "1")

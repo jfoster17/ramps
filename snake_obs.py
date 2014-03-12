@@ -15,8 +15,8 @@ AutoPeakFocus(location=peak_source, flux=1.5, configure=False)
 
 
 ##########  <<<< Do only one of these!!! >>>>> #########
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
-#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
+#execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 

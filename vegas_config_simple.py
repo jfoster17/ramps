@@ -4,7 +4,6 @@
 vegas_config = """
 receiver  = 'RcvrArray18_26'          # select KFPA receiver
 beam      = '1,2,3,4,5,6,7'           # use seven beams (KFPA)
-
 obstype   = 'Spectroscopy'
 backend   = 'VEGAS'
 nwin      = 8                          # eight spectral windows
@@ -26,25 +25,20 @@ deltafreq = {23694.50:0,
            23963.90:0,
            23694.50:0,
            }
-            
 bandwidth = 23.44                     # bandwidth (per window)
 nchan     = 'medium'                     # 4096 channels = 0.07 km/s
-
 swmode    = "tp"                      # set position switching
 swtype    = "none"                    # no frequency switching
-swper     = 0.5                       # one-half second cycle for switching
-                                      # (default is swper = 1.0)
+swper     = 1.0                       # one-half second cycle for switching
 swfreq    = 0.0, 0.0                  # for freq switching
-tint      = 1.0                       # integration time
-
+tint      = 5.0                       # integration time
 vlow      = -150
 vhigh     = 150
 vframe    = "lsrk"
 vdef      = "Radio"
-
 noisecal  = "lo"
 pol       = "Circular"
-vegas.vpol = 'cross'
+vegas.vpol = 'self'
 broadband = 0
 """
 

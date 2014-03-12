@@ -62,7 +62,7 @@ vdef      = "Radio"
 noisecal  = "lo"
 pol       = "Circular"
 vegas.vpol='cross'
-broadband = 1
+broadband = 0
 """
 
 #23694.50 #NH3 (1-1)
