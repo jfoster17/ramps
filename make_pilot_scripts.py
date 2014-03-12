@@ -7,9 +7,9 @@ Specify a central position in galactic longitude
 The map will extend +/- 0.5 degrees in latitude
 Half the map will be done in blocks, half in stripes
 
-python make_pilot_cat_and_scripts.py -p 10.5 -s -c
-python make_pilot_cat_and_scripts.py -p 29.5 -s -c
-python make_pilot_cat_and_scripts.py -p 39.5 -s -c
+python make_pilot_scripts.py -p 10.5 -s -c
+python make_pilot_scripts.py -p 29.5 -s -c
+python make_pilot_scripts.py -p 39.5 -s -c
 
 -d : Directory   -- Name of directory into which to save files
 -p : Position    -- Central position of map in Galactic longitude
