@@ -18,7 +18,7 @@ restfreq  = {23694.50:'1,2,3,4,5,6,7', # line frequencies
             "DopplerTrackFreq":23694.50} 
 bandwidth = 23.44                     # bandwidth (per window)
 nchan     = 'medium'                     # 4096 channels = 0.07 km/s
-deltafreq = 0       
+deltafreq = [0,0,0,0,0,0,0,0]       
 swmode    = "tp"                      # set position switching
 swtype    = "none"                    # no frequency switching
 swper     = 1.0                       # one-half second cycle for switching
