@@ -16,29 +16,20 @@ restfreq  = {23694.50:'1,2,3,4,5,6,7', # line frequencies
              23963.90:'1,2,3,4,5,6,7', 
              23694.50:'1,2,3,4,5,6,7', #Duplicate NH3 (1-1)
             "DopplerTrackFreq":23694.50} 
-deltafreq = {23694.50:0,
-           23722.63:0,
-           23870.13:0,
-           24139.42:0,
-           24532.99:0,
-           23444.78:0,
-           23963.90:0,
-           23694.50:0,
-           }
 bandwidth = 23.44                     # bandwidth (per window)
 nchan     = 'medium'                     # 4096 channels = 0.07 km/s
+deltafreq = 0       
 swmode    = "tp"                      # set position switching
 swtype    = "none"                    # no frequency switching
 swper     = 1.0                       # one-half second cycle for switching
 swfreq    = 0.0, 0.0                  # for freq switching
-tint      = 5.0                       # integration time
-vlow      = -150
-vhigh     = 150
+tint      = 1.0                       # integration time
+vlow      = 0                         # set to zero on advice of Kepley
+vhigh     = 0
 vframe    = "lsrk"
 vdef      = "Radio"
 noisecal  = "lo"
 pol       = "Circular"
-vegas.vpol = 'self'
 broadband = 0
 """
 
