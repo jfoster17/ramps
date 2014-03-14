@@ -28,6 +28,8 @@
 ;
 ;        pols: Which polarizations (plnum=) to include.
 ;
+;       feeds: Which feeds (fdnum=) to cycle over.
+;
 ; file_prefix: Prefix for files of individual spectra.
 ;
 ; file_suffix: Suffix for files of individual spectra.
@@ -39,7 +41,7 @@
 ;-
 ;
 
-pro reduce_single_obs, scans, ifnums, pols, file_prefix, file_suffixes, QUIET=quiet
+pro reduce_single_obs, scans, ifnums, pols, feeds, file_prefix, file_suffixes, QUIET=quiet
    
    if (n_elements(file_suffixes) eq 0) then file_suffixes = 0
    quiet = keyword_set(quiet)
@@ -51,6 +53,7 @@ pro reduce_single_obs, scans, ifnums, pols, file_prefix, file_suffixes, QUIET=qu
          print, " scans  - GBTIDL scan numbers."
          print, " ifnums - Which ifnum= to cycle over."
          print, " pols   - Which polarizations (plnum=) to include."
+         print, " feeds  - Which feeds (fdnum=) to cycle over. "
          print, " file_prefix - Prefix for files of individual spectra."
          print, " file_suffix - Suffix for files of individual spectra."
          print, " /QUIET - shhhhhhh..."
@@ -72,23 +75,22 @@ pro reduce_single_obs, scans, ifnums, pols, file_prefix, file_suffixes, QUIET=qu
          print," **** Reducing IF #", i, " FILE=", file_prefix, file_suffixes[i], " ****"
       if (~quiet and file_suffixes eq 0) then $
          print," **** Reducing IF #", i, " FILE=", file_prefix, strtrim(obs_freq,2), " ****"
-         
-      for j=0,n_elements(scans)-1 do begin
-         for k=0,n_elements(pols)-1 do begin
-            getps, scans[j], ifnum=ifnums[i], plnum=pols[k]
-            accum
+      for h=0,n_elements(feeds)-1 do begin
+         for j=0,n_elements(scans)-1 do begin
+            for k=0,n_elements(pols)-1 do begin
+               getps, scans[j], ifnum=ifnums[i], plnum=pols[k], fdnum=feeds[h]
+               accum
+            endfor
          endfor
+         ave
+         if (~file_suffixes) then $
+            filename = file_prefix[0] + strtrim(obs_freq,2) + '.fits' $
+         else $
+            filename = file_prefix[0] + file_suffixes[i] + '.fits'
+         fileout, filename
+         keep
+         sclear   ; clear accumulator
       endfor
-      
-      ave
-      if (~file_suffixes) then $
-         filename = file_prefix[0] + strtrim(obs_freq,2) + '.fits' $
-      else $
-         filename = file_prefix[0] + file_suffixes[i] + '.fits'
- 
-      fileout, filename
-      keep
-      sclear   ; clear accumulator
    endfor
 
 end
