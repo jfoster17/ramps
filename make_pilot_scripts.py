@@ -81,18 +81,6 @@ def make_scripts(position,dir_name,reg_name):
     tile_template = Template(tt)
     strip_template = Template(ts)
         
-    point_str = """
-#RAMPS Astrid script using the KFPA/VEGAS
-#HISTORY 
-#March 10, 2014 (JBF) Initial Version
-
-execfile("/home/astro-util/projects/13B312/${dir_name}/ramps/Pilot${reg_name}Sources.cat")
-
-mySource = "{$map_pos}"
-
-#Do automatic lookup for peak/focus
-AutoPeakFocus()
-"""
  #   point_temp = Template(point_str)
     for i,line in enumerate(all_lines):
         if "Tiles" in line:
@@ -138,7 +126,7 @@ def make_catalog(position,dir_name,reg_name):
     
     #I need to look up these points as the brightest points
     #within each region from Bolocam
-    fullstring += "PointPos GALACTIC 10.2976 -0.1482 50.0\n"
+    fullstring += "PointPos GALACTIC 10.2976 -0.1482\n"
     
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
@@ -149,9 +137,9 @@ def make_catalog(position,dir_name,reg_name):
     for glat in np.arange(-0.05,0.35,.195):
         for glon in np.arange(glon_max,glon_min,-0.245):
             map_string = "Pilot_Tiles"+reg_name+str(i).zfill(2)+\
-                         " GALACTIC "+str(glon)+" "+str(glat)+" 50.0"
+                         " GALACTIC "+str(glon)+" "+str(glat)
             off_string = "Pilot_TiOFF"+reg_name+str(i).zfill(2)+\
-                         " GALACTIC "+str(glon)+" "+str(glat+1.0)+" 50.0"
+                         " GALACTIC "+str(glon)+" "+str(glat+1.0)
             fullstring = fullstring+map_string+"\n"
             rect = Rectangle((glon-0.125,glat-0.1),0.25,0.20,fill=True, 
                              fc='red', visible=True, alpha=0.4)
@@ -168,9 +156,9 @@ def make_catalog(position,dir_name,reg_name):
                 for glat2 in np.arange(0,-0.41,-0.053):
                     for glon2 in [position]:
                         map_string = "Pilot_Strip"+reg_name+str(i).zfill(2)+\
-                                     " GALACTIC "+str(glon2)+" "+str(glat2)+" 50.0"
+                                     " GALACTIC "+str(glon2)+" "+str(glat2)
                         off_string = "Pilot_StOFF"+reg_name+str(i).zfill(2)+\
-                                     " GALACTIC "+str(glon2)+" "+str(glat2+1.0)+" 50.0"
+                                     " GALACTIC "+str(glon2)+" "+str(glat2+1.0)
                         fullstring = fullstring+map_string+"\n"
                         rect = Rectangle((glon2-0.5,glat2-0.058/2.),1,0.058,fill=True, 
                                          fc='blue', visible=True,alpha = 0.4)
@@ -300,7 +288,21 @@ RALongMap( mapTarget,
 #perform the final position switched reference obs
 OffTrack( off, None, 30.0, "1")
 """
-     
+
+
+point_str = """
+#RAMPS Astrid script using the KFPA/VEGAS
+#HISTORY 
+#March 10, 2014 (JBF) Initial Version
+
+execfile("/home/astro-util/projects/13B312/${dir_name}/ramps/Pilot${reg_name}Sources.cat")
+
+mySource = "{$map_pos}"
+
+#Do automatic lookup for peak/focus
+AutoPeakFocus()
+"""
+
 if __name__ == '__main__':
     main()
 
