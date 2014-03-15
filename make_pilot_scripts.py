@@ -89,6 +89,9 @@ def make_scripts(position,dir_name,reg_name):
     elif position == 29.5:
         point_source = "1751+0939"
         onoff_source = "Field29p5OnOff"
+    elif position == 39.5:
+        point_source = "1850-0001"
+        onoff_source = "Field39p5OnOff"
     
     #Make a separate peak script
     d = {"pointing_pos":point_source,"onoff_pos":onoff_source,
@@ -96,12 +99,12 @@ def make_scripts(position,dir_name,reg_name):
          "dir_name":dir_name}
     
     point_out = pointing_temp.substitute(d)
-    gg= open(dir_name+"/pointing"+reg_name[0:-2]+".py",'w')
+    gg= open(dir_name+"/pointing"+reg_name[0:-1]+".py",'w')
     print >>gg,point_out
     gg.close()
     
     point_out = onoff_temp.substitute(d)
-    gg= open(dir_name+"/onoff"+reg_name[0:-2]+".py",'w')
+    gg= open(dir_name+"/onoff"+reg_name[0:-1]+".py",'w')
     print >>gg,point_out
     gg.close()
         
