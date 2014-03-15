@@ -287,7 +287,7 @@ Catalog(kband_pointing)
 #Use pre-defined target
 AutoPeakFocus("${pointing_pos}")
 #Look near the peak
-#AutoPeakFocus(location=${onoff_pos})
+#AutoPeakFocus(location='${onoff_pos}')
 """
 
 if __name__ == '__main__':
