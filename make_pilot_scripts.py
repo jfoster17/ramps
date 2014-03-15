@@ -147,6 +147,7 @@ head = NAME    GLON      GLAT
     #within each region from Bolocam
     fullstring +=  "Field10p5OnOff    10.1659      -0.3555\n"
     fullstring +=  "Field29p5OnOff    29.9356      -0.0587\n"
+    fullstring +=  "Field39p5OnOff    37.8765      -0.3995\n"
 
     
     #Do some tiles (0.25 x 0.20)
