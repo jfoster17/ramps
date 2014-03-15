@@ -122,7 +122,10 @@ def make_catalog(position,dir_name,reg_name):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     all_patches = []
-    fullstring = ""
+    fullstring = """# RAMPS source list
+coordmode=GALACTIC
+head = NAME    GLON      GLAT
+"""
     
     #I need to look up these points as the brightest points
     #within each region from Bolocam
