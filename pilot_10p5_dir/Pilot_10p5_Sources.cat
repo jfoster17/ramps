@@ -1,7 +1,8 @@
 # RAMPS source list
 coordmode=GALACTIC
 head = NAME    GLON      GLAT
-PointPos 10.2976 -0.1482
+Field10p5OnOff    10.1659      -0.3555
+Field29p5OnOff    29.9356      -0.0587
 Pilot_Tiles_10p5_01 10.875 -0.05
 Pilot_TiOFF_10p5_01 10.875 0.95
 Pilot_Tiles_10p5_02 10.63 -0.05

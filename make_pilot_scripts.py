@@ -80,8 +80,31 @@ def make_scripts(position,dir_name,reg_name):
     all_lines = ff.readlines()
     tile_template = Template(tt)
     strip_template = Template(ts)
+    pointing_temp = Template(pointing_str)
+    onoff_temp = Template(onoff_str)
         
- #   point_temp = Template(point_str)
+    if position == 10.5:
+        point_source = "1833-2103"
+        onoff_source = "Field10p5OnOff"
+    elif position == 29.5:
+        point_source = "1751+0939"
+        onoff_source = "Field29p5OnOff"
+    
+    #Make a separate peak script
+    d = {"pointing_pos":point_source,"onoff_pos":onoff_source,
+         "reg_name":reg_name,
+         "dir_name":dir_name}
+    
+    point_out = pointing_temp.substitute(d)
+    gg= open(dir_name+"/pointing"+reg_name+".py",'w')
+    print >>gg,point_out
+    gg.close()
+    
+    point_out = onoff_temp.substitute(d)
+    gg= open(dir_name+"/onoff"+reg_name+".py",'w')
+    print >>gg,point_out
+    gg.close()
+        
     for i,line in enumerate(all_lines):
         if "Tiles" in line:
             name = line.split(' ')[0]
@@ -93,11 +116,6 @@ def make_scripts(position,dir_name,reg_name):
             gg= open(dir_name+"/map"+name+".py",'w')
             print >>gg,output
             gg.close()
-            #Make a separate peak script
-            #point_out = point_temp.substitute(d)
-            #gg= open(dir_name+"/peak"+name+".py",'w')
-            #print >>gg,point_out
-            #gg.close()
             
         if "Strip" in line:
             name = line.split(' ')[0]
@@ -109,11 +127,6 @@ def make_scripts(position,dir_name,reg_name):
             gg= open(dir_name+"/map"+name+".py",'w')
             print >>gg,output
             gg.close()
-            #Make a separate peak script
-            #point_out = point_temp.substitute(d)
-            #gg= open(dir_name+"/peak"+name+".py",'w')
-            #print >>gg,point_out
-            #gg.close()
             
             
     
@@ -129,7 +142,9 @@ head = NAME    GLON      GLAT
     
     #I need to look up these points as the brightest points
     #within each region from Bolocam
-    fullstring += "PointPos 10.2976 -0.1482\n"
+    fullstring +=  "Field10p5OnOff    10.1659      -0.3555\n"
+    fullstring +=  "Field29p5OnOff    29.9356      -0.0587\n"
+
     
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
@@ -196,114 +211,77 @@ tt = """
 #RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
 #March 10, 2014 (JBF) Initial Version
-
-#First load our catalog
 Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
 
-#Simple configuration for auto-peak-focus
-#Try to get a source automagically
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
-Configure(vegas_config)
-AutoPeakFocus()
-
 ##########  <<<< Do only one of these!!! >>>>> #########
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
-#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
+#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
-
-
-#define procedures with scan anotations for the pipeline
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
-target = "${point_pos}"  # define location of peak emission, for test, not mapping
 off = "${off_pos}" # define a map reference location, with no emission
 
-Slew(target)
+Slew(off)
 Balance()
-#Check the levels are correct
-#Break("Balance IF-Rack and Spectrometer")
-
-#Perform the Target source observation; then check spectra
-TargetTrack(target, None, 30.0, "1")
-#perform a position switched reference location obs.
-OffTrack(off, None, 30.0, "1")
-
-#Tell Pipeline that mapping is starting
-SetValues("ScanCoordinator",{"scanId":"Map"})
+Track(off, None, 30.0, "1")
 mapTarget='${map_pos}'                # The map center is often not the peak location
 RALongMap( mapTarget, 
 	   Offset("Galactic", 0.25, 0.0), # This is a galactic coordinate map
 	   Offset("Galactic", 0.0, 0.20), 
 	   Offset("Galactic", 0.0, 0.008), 
 	   120.0, "1")
-
-#perform the final position switched reference obs
-OffTrack( off, None, 30.0, "1")
+Track( off, None, 30.0, "1")
 """
      
 ts = """
 #RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
 #March 10, 2014 (JBF) Initial Version
-
-#First load our catalog
 Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
 
-#Simple configuration for auto-peak-focus
-#Try to get a source automagically
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
-Configure(vegas_config)
-AutoPeakFocus()
-
 ##########  <<<< Do only one of these!!! >>>>> #########
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config.py")
-#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_simple.py")
+#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
-
-
-#define procedures with scan anotations for the pipeline
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
-target = "${point_pos}"  # define location of peak emission, for test, not mapping
 off = "${off_pos}" # define a map reference location, with no emission
 
-Slew(target)
+Slew(off)
 Balance()
-#Check the levels are correct
-#Break("Balance IF-Rack and Spectrometer")
-
-#Perform the Target source observation; then check spectra
-TargetTrack(target, None, 30.0, "1")
-#perform a position switched reference location obs.
-OffTrack(off, None, 30.0, "1")
-
-#Tell Pipeline that mapping is starting
-SetValues("ScanCoordinator",{"scanId":"Map"})
+Track(off, None, 30.0, "1")
 mapTarget='${map_pos}'                # The map center is often not the peak location
 RALongMap( mapTarget, 
 	   Offset("Galactic", 1.0, 0.0), # This is a galactic coordinate map
 	   Offset("Galactic", 0.0, 0.058), 
 	   Offset("Galactic", 0.0, 0.008), 
 	   480.0, "1")
+Track( off, None, 30.0, "1")
+"""
 
-#perform the final position switched reference obs
-OffTrack( off, None, 30.0, "1")
+onoff_str = """
+Catalog("/home/astro-util/projects/13B312/ramps/ramps_catalog-radec.txt")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
+#execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
+Configure(vegas_config)
+Slew("${onoff_pos}")
+Balance()
+OnOff("${onoff_pos}",Offset("Galactic",0.0,1.0),30,"1")
 """
 
 
-point_str = """
+pointing_str = """
 #RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
 #March 10, 2014 (JBF) Initial Version
 
-execfile("/home/astro-util/projects/13B312/${dir_name}/ramps/Pilot${reg_name}Sources.cat")
-
-mySource = "{$map_pos}"
+#execfile("/home/astro-util/projects/13B312/${dir_name}/ramps/Pilot${reg_name}Sources.cat")
+Catalog(kband_pointing)
 
 #Do automatic lookup for peak/focus
-AutoPeakFocus()
+AutoPeakFocus("${pointing_pos}")
 """
 
 if __name__ == '__main__':
