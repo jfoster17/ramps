@@ -266,7 +266,7 @@ Track( off, None, 30.0, "1")
 """
 
 onoff_str = """
-Catalog("/home/astro-util/projects/13B312/ramps/ramps_catalog-radec.txt")
+Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
 #execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
 Configure(vegas_config)
@@ -281,11 +281,13 @@ pointing_str = """
 #HISTORY 
 #March 10, 2014 (JBF) Initial Version
 
-#execfile("/home/astro-util/projects/13B312/${dir_name}/ramps/Pilot${reg_name}Sources.cat")
+#Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
 Catalog(kband_pointing)
 
-#Do automatic lookup for peak/focus
+#Use pre-defined target
 AutoPeakFocus("${pointing_pos}")
+#Look near the peak
+#AutoPeakFocus(location=${onoff_pos})
 """
 
 if __name__ == '__main__':
