@@ -129,7 +129,7 @@ head = NAME    GLON      GLAT
     
     #I need to look up these points as the brightest points
     #within each region from Bolocam
-    fullstring += "PointPos GALACTIC 10.2976 -0.1482\n"
+    fullstring += "PointPos 10.2976 -0.1482\n"
     
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
@@ -140,9 +140,9 @@ head = NAME    GLON      GLAT
     for glat in np.arange(-0.05,0.35,.195):
         for glon in np.arange(glon_max,glon_min,-0.245):
             map_string = "Pilot_Tiles"+reg_name+str(i).zfill(2)+\
-                         " GALACTIC "+str(glon)+" "+str(glat)
+                         " "+str(glon)+" "+str(glat)
             off_string = "Pilot_TiOFF"+reg_name+str(i).zfill(2)+\
-                         " GALACTIC "+str(glon)+" "+str(glat+1.0)
+                         " "+str(glon)+" "+str(glat+1.0)
             fullstring = fullstring+map_string+"\n"
             rect = Rectangle((glon-0.125,glat-0.1),0.25,0.20,fill=True, 
                              fc='red', visible=True, alpha=0.4)
@@ -159,9 +159,9 @@ head = NAME    GLON      GLAT
                 for glat2 in np.arange(0,-0.41,-0.053):
                     for glon2 in [position]:
                         map_string = "Pilot_Strip"+reg_name+str(i).zfill(2)+\
-                                     " GALACTIC "+str(glon2)+" "+str(glat2)
+                                     " "+str(glon2)+" "+str(glat2)
                         off_string = "Pilot_StOFF"+reg_name+str(i).zfill(2)+\
-                                     " GALACTIC "+str(glon2)+" "+str(glat2+1.0)
+                                     " "+str(glon2)+" "+str(glat2+1.0)
                         fullstring = fullstring+map_string+"\n"
                         rect = Rectangle((glon2-0.5,glat2-0.058/2.),1,0.058,fill=True, 
                                          fc='blue', visible=True,alpha = 0.4)
