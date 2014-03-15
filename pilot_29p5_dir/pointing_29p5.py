@@ -9,5 +9,5 @@ Catalog(kband_pointing)
 #Use pre-defined target
 AutoPeakFocus("1751+0939")
 #Look near the peak
-#AutoPeakFocus(location=Field29p5OnOff)
+#AutoPeakFocus(location='Field29p5OnOff')
 
