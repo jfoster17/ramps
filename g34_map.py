@@ -7,8 +7,8 @@ Configure(vegas_config)
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 Slew("g34")
 Balance()
-OffTrack("g34-off", None, 30.0, "1")    # get off-source obs.
-SetValues("ScanCoordinator",{"scanId":"Map"})
+Track("g34-off", None, 30.0, "1")    # get off-source obs.
+#SetValues("ScanCoordinator",{"scanId":"Map"})
 DecLatMap("g34",                        # center of map
           Offset("J2000",.12,0.0, cosv = True),      # width of map
           Offset("J2000",0.0,.30, cosv = True),      # height of map

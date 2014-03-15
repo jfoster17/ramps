@@ -7,8 +7,8 @@ Configure(vegas_config)
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 Slew("snake")
 Balance()
-OffTrack("snake-off", None, 30.0, "1")    # get off-source obs.
-SetValues("ScanCoordinator",{"scanId":"Map"})
+Track("snake-off", None, 30.0, "1")    # get off-source obs.
+#SetValues("ScanCoordinator",{"scanId":"Map"})
 RALongMap("snake",                        # center of map
           Offset("Galactic",0.41,0.0),    # width of map
           Offset("Galactic",0.0,0.16),    # height of map
