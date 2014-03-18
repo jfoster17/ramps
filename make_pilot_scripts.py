@@ -219,7 +219,7 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 
 ##########  <<<< Do only one of these!!! >>>>> #########
 #execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
@@ -246,7 +246,7 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 
 ##########  <<<< Do only one of these!!! >>>>> #########
 #execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
@@ -267,7 +267,7 @@ Track( off, None, 30.0, "1")
 
 onoff_str = """
 Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 #execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
 Configure(vegas_config)
 Slew("${onoff_pos}")

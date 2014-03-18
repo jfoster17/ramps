@@ -6,7 +6,7 @@ Catalog("/home/astro-util/projects/13B312/ramps/pilot_39p5_dir/Pilot_39p5_Source
 
 ##########  <<<< Do only one of these!!! >>>>> #########
 #execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
-execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps.py")
+execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
