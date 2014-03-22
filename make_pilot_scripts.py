@@ -6,16 +6,22 @@ Make a GBT Catalog for the Pilot Survey fields
 Specify a central position in galactic longitude
 The map will extend +/- 0.5 degrees in latitude
 Half the map will be done in blocks, half in stripes
+Maps are named by their right-hand edges. So field 10
+is centered at 10.5 and runs from 10 - 11. Field 29
+is centered at 29.5 and runs from 29 - 30.
 
-python make_pilot_scripts.py -p 10.5 -s -c
-python make_pilot_scripts.py -p 29.5 -s -c
-python make_pilot_scripts.py -p 39.5 -s -c
+python make_pilot_scripts.py -p 10 -s -c
+python make_pilot_scripts.py -p 29 -s -c
+python make_pilot_scripts.py -p 39 -s -c
 
 -d : Directory   -- Name of directory into which to save files
 -p : Position    -- Central position of map in Galactic longitude
 -s : Scripts     -- Make scripts for this position
 -c : Catalog     -- Make a catlog and visualization
 -h : Help        -- Display this help 
+
+
+
 """
 
 import sys,os,getopt
@@ -58,8 +64,8 @@ def main():
         sys.exit(2)
     if not dir_name:
         print("No output directory specified...")
-        dir_name = "pilot_"+str(round(float(position),1))+"_dir"
-        reg_name = "_"+str(round(float(position),1))+"_"
+        dir_name = "pilot_"+str(int(position))+"_dir"
+        reg_name = str(int(position))+"_"
         dir_name = dir_name.replace('.','p')
         reg_name = reg_name.replace('.','p')
         print("Using "+dir_name)
@@ -83,15 +89,15 @@ def make_scripts(position,dir_name,reg_name):
     pointing_temp = Template(pointing_str)
     onoff_temp = Template(onoff_str)
         
-    if position == 10.5:
+    if position == 10:
         point_source = "1833-2103"
-        onoff_source = "Field10p5OnOff"
-    elif position == 29.5:
+        onoff_source = "L10OnOff"
+    elif position == 29:
         point_source = "1751+0939"
-        onoff_source = "Field29p5OnOff"
-    elif position == 39.5:
+        onoff_source = "L29OnOff"
+    elif position == 39:
         point_source = "1850-0001"
-        onoff_source = "Field39p5OnOff"
+        onoff_source = "L39OnOff"
     
     #Make a separate peak script
     d = {"pointing_pos":point_source,"onoff_pos":onoff_source,
@@ -99,17 +105,17 @@ def make_scripts(position,dir_name,reg_name):
          "dir_name":dir_name}
     
     point_out = pointing_temp.substitute(d)
-    gg= open(dir_name+"/pointing"+reg_name[0:-1]+".py",'w')
+    gg= open(dir_name+"/pointing_L"+reg_name[0:-1]+".py",'w')
     print >>gg,point_out
     gg.close()
     
     point_out = onoff_temp.substitute(d)
-    gg= open(dir_name+"/onoff"+reg_name[0:-1]+".py",'w')
+    gg= open(dir_name+"/onoff_L"+reg_name[0:-1]+".py",'w')
     print >>gg,point_out
     gg.close()
         
     for i,line in enumerate(all_lines):
-        if "Tiles" in line:
+        if "Tile" in line:
             name = line.split(' ')[0]
             off = all_lines[i+1].split(' ')[0]
             d = {"point_pos":"PointPos","off_pos":off,
@@ -145,9 +151,9 @@ head = NAME    GLON      GLAT
     
     #I need to look up these points as the brightest points
     #within each region from Bolocam
-    fullstring +=  "Field10p5OnOff    10.1659      -0.3555\n"
-    fullstring +=  "Field29p5OnOff    29.9356      -0.0587\n"
-    fullstring +=  "Field39p5OnOff    37.8765      -0.3995\n"
+    fullstring +=  "L10OnOff    10.1659      -0.3555\n"
+    fullstring +=  "L29OnOff    29.9356      -0.0587\n"
+    fullstring +=  "L39OnOff    37.8765      -0.3995\n"
 
     
     #Do some tiles (0.25 x 0.20)
@@ -158,9 +164,9 @@ head = NAME    GLON      GLAT
     glon_max = position+0.375
     for glat in np.arange(-0.05,0.35,.195):
         for glon in np.arange(glon_max,glon_min,-0.245):
-            map_string = "Pilot_Tiles"+reg_name+str(i).zfill(2)+\
+            map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                          " "+str(glon)+" "+str(glat)
-            off_string = "Pilot_TiOFF"+reg_name+str(i).zfill(2)+\
+            off_string = "L"+reg_name+"TOFF"+str(i).zfill(2)+\
                          " "+str(glon)+" "+str(glat+1.0)
             fullstring = fullstring+map_string+"\n"
             rect = Rectangle((glon-0.125,glat-0.1),0.25,0.20,fill=True, 
@@ -177,9 +183,9 @@ head = NAME    GLON      GLAT
                 #Offset would be -0.058 for best practice. Inclue 0.05 degree overlap
                 for glat2 in np.arange(0,-0.41,-0.053):
                     for glon2 in [position]:
-                        map_string = "Pilot_Strip"+reg_name+str(i).zfill(2)+\
+                        map_string = "L"+reg_name+"Strip"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2)
-                        off_string = "Pilot_StOFF"+reg_name+str(i).zfill(2)+\
+                        off_string = "L"+reg_name+"StOff"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2+1.0)
                         fullstring = fullstring+map_string+"\n"
                         rect = Rectangle((glon2-0.5,glat2-0.058/2.),1,0.058,fill=True, 
