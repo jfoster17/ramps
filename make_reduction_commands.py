@@ -12,8 +12,34 @@ Problem:  mapDefault.py does not work well in galactic coordinates,
           fails on big maps and has some wrong hard-coded header info
 Solution: Run mapRAMPS.py instead, which takes care of these problems
 
+Problem:  The new mapping script assumes GLAT and GLON
+Solution: None yet
+
+Assumption is that we've used SFDITS filler to create an input file 
+with the appropriate scans via
+sdfits -scans=35:57 /home/gbtdata/AGBT13B_312_01
+AND renamed it something useful:
+mv AGBT13B_312_01.raw.vegas L10_S08.raw.vegas
+The filenane ("-f") should be fairly standard after the first few
+sessions
+
+
 Example:
-python make_reduction_commands.py -i SNAKE-MAP.raw.vegas -m 36:56 -r 35,37 -w 8:10 -s 1:2 -b H -f "snake_scan" -x 11.148 -y "-0.104" -c 0.41 -d 0.16
+python make_reduction_commands.py -i SNAKE-MAP.raw.vegas -m 36:56 -r 35,57 -w 8:10 -s 1:2 -b H -f "snake_scan" -x 11.148 -y "-0.104" -c 0.41 -d 0.16
+python make_reduction_commands.py -i L10_S07-MAP.raw.vegas -m 66:73 -r 65,74 -w 8:10 -s 4:5 -b H -f "junk" -x 10.0 -y "-0.106" -c 1.00 -d 0.060
+
+-i : Input       -- Input raw VEGAS file with correct scans in it
+-m : MapScans    -- Map scans. For now limited to colon-separated list
+-r : RefScans    -- Reference scans
+-w : Windows     -- Spectral windows (IFnums) to do (6,8:13)
+-s : Second Wins -- Secondary (central beam) IFnums (1:5,7)
+-b : Bad Banks   -- VEGAS banks to exclude (by letter). Often H
+-f : Filename    -- Name of source (and thus output filename)
+-x : X-location  -- Longitude (X) center of map in decimal degrees
+-y : Y-location  -- Latitude (Y) center of map in decimal degrees
+-c : X width     -- Width (longitude) of map in decimal degrees
+-d : Y height    -- Height (latitude) of map in decimal degrees
+-h : Help        -- Display this help 
 
 """
 
@@ -52,10 +78,9 @@ def main():
             width = str(int(float(a)/0.0016667))
         elif o == "-d":
             height = str(int(float(a)/0.0016667))
-        
-        #elif o == "-h":
-        #    print(__doc__)
-        #    sys.exit(1)
+        elif o == "-h":
+            print(__doc__)
+            sys.exit(1)
         else:
             assert False, "unhandled option"
             print(__doc__)
