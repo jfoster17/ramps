@@ -75,7 +75,7 @@ def main():
         
     for window in central_window_list:
         files = []
-        feed = 0
+        feed_num = 0
         files.append(output_do_window(base,maps,window,feed_num))
         make_map(files,xcen,ycen,width,height)
         print("\n")
@@ -86,7 +86,7 @@ def make_map(files,xcen,ycen,width,height):
     for file in files:
         command_string = command_string+file+" "
     print(command_string)
-    print("""doImage /lustre/pipeline/scratch/jfoster/scripts/mapRAMPS.py 4363 1 """+xcen+" "+ycen+" "+width+" "+height)
+    print("""doImage /lustre/pipeline/scratch/jfoster/scripts/ramps/mapRAMPS.py 4363 1 """+xcen+" "+ycen+" "+width+" "+height)
     print("""doImage /home/gbtpipeline/release/contrib/clear_AIPS_catalog.py 4363""")
         
         
