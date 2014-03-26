@@ -95,6 +95,9 @@ def make_scripts(position,dir_name,reg_name):
     elif position == 29:
         point_source = "1751+0939"
         onoff_source = "L29OnOff"
+    elif position == 30:
+        point_source = "1751+0939"
+        onoff_source = "L30OnOff"
     elif position == 39:
         point_source = "1850-0001"
         onoff_source = "L39OnOff"
@@ -153,6 +156,7 @@ head = NAME    GLON      GLAT
     #within each region from Bolocam
     fullstring +=  "L10OnOff    10.1659      -0.3555\n"
     fullstring +=  "L29OnOff    29.9356      -0.0587\n"
+    fullstring +=  "L30OnOff    29.9617      -0.0160\n"
     fullstring +=  "L39OnOff    37.8765      -0.3995\n"
 
     
