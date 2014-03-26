@@ -27,6 +27,7 @@ sessions
 Example:
 python make_reduction_commands.py -i SNAKE-MAP.raw.vegas -m 36:56 -r 35,57 -w 8:10 -s 1:2 -b H -f "snake_scan" -x 11.148 -y "-0.104" -c 0.41 -d 0.16
 python make_reduction_commands.py -i L10_S07-MAP.raw.vegas -m 66:73 -r 65,74 -w 8:10 -s 4:5 -b H -f "junk" -x 10.0 -y "-0.106" -c 1.00 -d 0.060
+python make_reduction_commands.py -i L10_S05-MAP.raw.vegas -m 18:25 -r 17,26 -w 8:10 -s 4:5 -b H -f "L10_Strip05" -x 10.0 -y 0.0 -c 1.00 -d 0.060
 
 -i : Input       -- Input raw VEGAS file with correct scans in it
 -m : MapScans    -- Map scans. For now limited to colon-separated list
@@ -94,14 +95,18 @@ def main():
         for feed in feed_list:
             if feed not in exclude_banks:
                 feed_num = bank_feed[feed]
-                files.append(output_do_window(base,maps,window,feed_num))
+                ya = output_do_window(base,maps,window,feed_num)
+                for item in ya:
+                    files.append(item)
         make_map(files,xcen,ycen,width,height)
         print("\n")
         
     for window in central_window_list:
         files = []
         feed_num = 0
-        files.append(output_do_window(base,maps,window,feed_num))
+        ya = output_do_window(base,maps,window,feed_num)
+        for item in ya:
+            files.append(item)
         make_map(files,xcen,ycen,width,height)
         print("\n")
         
@@ -124,18 +129,20 @@ def output_do_window(base,maps,window,feed_num):
     Assume scans are grouped with ":" ONLY. Dangerous assumption
 
     """
-    command_string = """idlToSdfits -l -o ${base}_window${window}_feed${feed}_pol${pol}.sdf ${base}_window${window}_feed${feed}_pol${pol}.fits"""
-    command_template = Template(command_string)
-    file_string = """${base}_window${window}_feed${feed}_pol${pol}.sdf"""
-    file_template = Template(file_string)
-    
+
+    filesout = []
     scans = maps.split(":")
-    base = base+"_"+scans[0]+"_"+scans[1]
+    base = base+"_scan_"+scans[0]+"_"+scans[1]
     for pol in [0,1]:
+        command_string = """idlToSdfits -l -o ${base}w${window}f${feed}p${pol}.sdf ${base}_window${window}_feed${feed}_pol${pol}.fits"""
+        command_template = Template(command_string)
+        file_string = """${base}w${window}f${feed}p${pol}.sdf"""
+        file_template = Template(file_string)
         d = {"base":base, "window":window, "feed":feed_num, "pol":pol}
         output = command_template.substitute(d)
         print(output)
-        return(file_template.substitute(d))
+        filesout.append(file_template.substitute(d))
+    return(filesout)
     
 def output_pipeline_commands(inputfile,maps,refs,windows,central_windows,exclude_banks):
     """
