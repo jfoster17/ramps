@@ -28,6 +28,7 @@ Example:
 python make_reduction_commands.py -i SNAKE-MAP.raw.vegas -m 36:56 -r 35,57 -w 8:10 -s 1:2 -b H -f "snake_scan" -x 11.148 -y "-0.104" -c 0.41 -d 0.16
 python make_reduction_commands.py -i L10_S07-MAP.raw.vegas -m 66:73 -r 65,74 -w 8:10 -s 4:5 -b H -f "junk" -x 10.0 -y "-0.106" -c 1.00 -d 0.060
 python make_reduction_commands.py -i L10_S05-MAP.raw.vegas -m 18:25 -r 17,26 -w 8:10 -s 4:5 -b H -f "L10_Strip05" -x 10.0 -y 0.0 -c 1.00 -d 0.060
+python make_reduction_commands.py -i L10_T01.raw.vegas -m 48:73 -r 47,74 -w 8:10 -s 4:5 -f "L10_Tile01" -x 10.375 -y "-0.05" -c 0.25 -d 0.20
 
 -i : Input       -- Input raw VEGAS file with correct scans in it
 -m : MapScans    -- Map scans. For now limited to colon-separated list
@@ -48,6 +49,8 @@ import sys,os,getopt
 from string import Template
 
 def main():
+
+    exclude_banks = []
     try:
         opts,args = getopt.getopt(sys.argv[1:],"i:m:r:w:s:b:f:x:y:c:d:")
     except getopt.GetoptError,err:

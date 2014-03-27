@@ -191,9 +191,9 @@ sdgrd.inseq=AIPSCat()[mydisk][-1].seq
 sdgrd.optype='-GLS'
 sdgrd.reweight[1] = 0
 # must break up RA into hours minutes seconds
-sdgrd.aparm[1]=math.floor(raDeg)
-sdgrd.aparm[2]=math.floor(((raDeg)-sdgrd.aparm[1])*60.)
-sdgrd.aparm[3]=round(((((raDeg)-sdgrd.aparm[1])*60.)-sdgrd.aparm[2])*60.)
+sdgrd.aparm[1]=math.floor(raDeg/15.)
+sdgrd.aparm[2]=math.floor(((raDeg/15.)-sdgrd.aparm[1])*60.)
+sdgrd.aparm[3]=round(((((raDeg/15.)-sdgrd.aparm[1])*60.)-sdgrd.aparm[2])*60.)
 #now break up degrees, but must preserve sign
 decSign = 1.
 if decDeg < 0.:
