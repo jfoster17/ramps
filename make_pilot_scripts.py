@@ -13,6 +13,8 @@ is centered at 29.5 and runs from 29 - 30.
 python make_pilot_scripts.py -p 10 -s -c
 python make_pilot_scripts.py -p 29 -s -c
 python make_pilot_scripts.py -p 39 -s -c
+python make_pilot_scripts.py -p 30 -s -c
+
 
 -d : Directory   -- Name of directory into which to save files
 -p : Position    -- Central position of map in Galactic longitude
