@@ -223,7 +223,8 @@ catalog_template_2 ='''
 
 tt = """
 #RAMPS Astrid script using the KFPA/VEGAS
-#HISTORY 
+#HISTORY
+#April 15, 2015 (JBF) Set blanking values manually to fix a VEGAS problem 
 #March 10, 2014 (JBF) Initial Version
 Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
 
@@ -232,6 +233,11 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
+ScanCordValues = {'blanking,1' : 0.006,
+                  'blanking,2' : 0.006}
+SetValues('ScanCoordinator', ScanCordValues)
+SetValues('ScanCoordinator', {'state':'prepare'})
+
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
 off = "${off_pos}" # define a map reference location, with no emission
@@ -251,6 +257,7 @@ Track( off, None, 30.0, "1")
 ts = """
 #RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
+#April 15, 2015 (JBF) Set blanking values manually to fix a VEGAS problem 
 #March 10, 2014 (JBF) Initial Version
 Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sources.cat")
 
@@ -259,6 +266,10 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
+ScanCordValues = {'blanking,1' : 0.006,
+                  'blanking,2' : 0.006}
+SetValues('ScanCoordinator', ScanCordValues)
+SetValues('ScanCoordinator', {'state':'prepare'})
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
 off = "${off_pos}" # define a map reference location, with no emission
@@ -280,6 +291,10 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 #execfile("/home/astro-util/projects/13B312/ramps/vegas_config_kepley.py")
 Configure(vegas_config)
+ScanCordValues = {'blanking,1' : 0.006,
+                  'blanking,2' : 0.006}
+SetValues('ScanCoordinator', ScanCordValues)
+SetValues('ScanCoordinator', {'state':'prepare'})
 Slew("${onoff_pos}")
 Balance()
 OnOff("${onoff_pos}",Offset("Galactic",0.0,1.0),30,"1")
