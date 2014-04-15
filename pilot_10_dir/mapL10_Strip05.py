@@ -1,6 +1,7 @@
 
 #RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY 
+#April 15, 2015 (JBF) Set blanking values manually to fix a VEGAS problem 
 #March 10, 2014 (JBF) Initial Version
 Catalog("/home/astro-util/projects/13B312/ramps/pilot_10_dir/Pilot10_Sources.cat")
 
@@ -9,6 +10,10 @@ Catalog("/home/astro-util/projects/13B312/ramps/pilot_10_dir/Pilot10_Sources.cat
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
+ScanCordValues = {'blanking,1' : 0.006,
+                  'blanking,2' : 0.006}
+SetValues('ScanCoordinator', ScanCordValues)
+SetValues('ScanCoordinator', {'state':'prepare'})
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
 off = "L10_StOff05" # define a map reference location, with no emission

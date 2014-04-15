@@ -3,6 +3,7 @@ coordmode=GALACTIC
 head = NAME    GLON      GLAT
 L10OnOff    10.1659      -0.3555
 L29OnOff    29.9356      -0.0587
+L30OnOff    29.9617      -0.0160
 L39OnOff    37.8765      -0.3995
 L10_Tile01 10.375 -0.05
 L10_TOFF01 10.375 0.95
