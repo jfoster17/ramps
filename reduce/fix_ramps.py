@@ -5,7 +5,7 @@ import numpy as np
 import numpy.ma as ma
 import scipy.signal as si
 import multiprocessing
-
+import my_pad
 
 def main():
     #Magic to prevent numpy from breaking multiprocessing
@@ -92,7 +92,7 @@ def baseline_and_deglitch(orig_spec):
     ww = 300
     ya = rolling_window(orig_spec,ww*2)
     #Calculate standard dev and pad the output
-    stds = np.lib.pad(np.std(ya,-1),(ww-1,ww),mode='edge')
+    stds = my_pad.pad(np.std(ya,-1),(ww-1,ww),mode='edge')
     #Figure out which bits of the spectrum have signal/glitches
     med_std = np.median(stds)
     std_std = np.std(stds)
