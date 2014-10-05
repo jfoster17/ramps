@@ -193,10 +193,10 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
-ScanCordValues = {'blanking,1' : 0.006,
-                  'blanking,2' : 0.006}
-SetValues('ScanCoordinator', ScanCordValues)
-SetValues('ScanCoordinator', {'state':'prepare'})
+#ScanCordValues = {'blanking,1' : 0.006,
+#                  'blanking,2' : 0.006}
+#SetValues('ScanCoordinator', ScanCordValues)
+#SetValues('ScanCoordinator', {'state':'prepare'})
 
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
@@ -226,10 +226,10 @@ Catalog("/home/astro-util/projects/13B312/ramps/${dir_name}/Pilot${reg_name}Sour
 execfile("/home/astro-util/projects/13B312/ramps/vegas_config_ramps_adv.py")
 ##########  <<<< Do only one of these!!! >>>>> #########
 Configure(vegas_config)
-ScanCordValues = {'blanking,1' : 0.006,
-                  'blanking,2' : 0.006}
-SetValues('ScanCoordinator', ScanCordValues)
-SetValues('ScanCoordinator', {'state':'prepare'})
+#ScanCordValues = {'blanking,1' : 0.006,
+#                  'blanking,2' : 0.006}
+#SetValues('ScanCoordinator', ScanCordValues)
+#SetValues('ScanCoordinator', {'state':'prepare'})
 execfile("/home/astro-util/projects/TKFPA/kfpaMapInit")
 
 off = "${off_pos}" # define a map reference location, with no emission

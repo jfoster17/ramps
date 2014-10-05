@@ -7,7 +7,7 @@ beam      = '1,2,3,4,5,6,7'           # use seven beams (KFPA)
 obstype   = 'Spectroscopy'
 backend   = 'VEGAS'
 #xnwin      = 8                          # eight spectral windows
-vegas.vfreq = [{"restfreq":23694.50,"beam":'1,2,3,4,5,6,7'},
+restfreq = [{"restfreq":23694.50,"beam":'1,2,3,4,5,6,7'},
     {"restfreq":23722.63,"beam":'1,2,3,4,5,6,7'},
     {"restfreq":23870.13,"beam":'1,2,3,4,5,6,7'},
     {"restfreq":24139.42,"beam":'1,2,3,4,5,6,7'},
@@ -29,9 +29,9 @@ bandwidth = 23.44                     # bandwidth (per window)
 nchan     = 'medium'                     # 4096 channels = 0.07 km/s
 swmode    = "tp"                      # set position switching
 swtype    = "none"                    # no frequency switching
-swper     = 1.6                       # one-half second cycle for switching
+swper     = 1.0                       # one-half second cycle for switching
 swfreq    = 0.0, 0.0                  # for freq switching
-tint      = 1.6                       # integration time
+tint      = 1.0                       # integration time
 vlow      = 0                         # set to zero on advice of Kepley
 vhigh     = 0
 vframe    = "lsrk"

@@ -41,9 +41,9 @@ deltafreq = {23694.50:0,
              }       
 swmode    = "tp"                      # set position switching
 swtype    = "none"                    # no frequency switching
-swper     = 1.6                       # one-half second cycle for switching
+swper     = 1.0                       # one-half second cycle for switching
 swfreq    = 0.0, 0.0                  # for freq switching
-tint      = 1.6                       # integration time
+tint      = 1.0                       # integration time
 vlow      = 0                         # set to zero on advice of Kepley
 vhigh     = 0
 vframe    = "lsrk"
