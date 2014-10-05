@@ -91,6 +91,7 @@ def main():
             sys.exit(2)
     output_pipeline_commands(inputfile,maps,refs,windows,central_windows,exclude_banks)
     feed_list = ["A","B","C","D","F","G","H"]
+
     bank_feed = {"H":6, "C":4, "G":2, "F":0, "D":5, "A":1, "B":3, "E":0}
     
     for window in window_list:
