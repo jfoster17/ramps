@@ -13,6 +13,9 @@ python make_pilot_scripts.py -p 29 -s -c
 python make_pilot_scripts.py -p 39 -s -c
 python make_pilot_scripts.py -p 30 -s -c
 
+WHEN MAKING A NEW DIRECTORY
+You must also chmod a+x that directory or
+the catalog will mysteriously fail to load.
 
 -d : Directory   -- Name of directory into which to save files
 -p : Position    -- Central position of map in Galactic longitude
@@ -98,9 +101,13 @@ def make_scripts(position,dir_name,reg_name):
     elif position == 30:
         point_source = "1751+0939"
         onoff_source = "L30OnOff"
+    elif position == 31:
+        point_source = "1751+0939"
+        onoff_source = "L31OnOff"
     elif position == 39:
         point_source = "1850-0001"
         onoff_source = "L39OnOff"
+
     
     #Make a separate peak script
     d = {"pointing_pos":point_source,"onoff_pos":onoff_source,
