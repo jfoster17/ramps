@@ -6,9 +6,7 @@ Make a GBT Catalog for the Pilot Survey fields
 Specify a central position in galactic longitude
 The map will extend +/- 0.5 degrees in latitude
 Half the map will be done in blocks, half in stripes
-Maps are named by their right-hand edges. So field 10
-is centered at 10.5 and runs from 10 - 11. Field 29
-is centered at 29.5 and runs from 29 - 30.
+Maps are named by their central position.
 
 python make_pilot_scripts.py -p 10 -s -c
 python make_pilot_scripts.py -p 29 -s -c
@@ -160,7 +158,7 @@ head = NAME    GLON      GLAT
     fullstring +=  "L29OnOff    29.9356      -0.0587\n"
     fullstring +=  "L30OnOff    29.9617      -0.0160\n"
     fullstring +=  "L39OnOff    37.8765      -0.3995\n"
-
+    fullstring +=  "L31OnOff    31.4125      +0.3075\n"
     
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
