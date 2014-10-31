@@ -87,12 +87,15 @@ def main():
         sys.exit(2)
     
     if "L10" in field_name:
+        print("Using the OLD style of tiles and strips.")
         old_style = True
+    if not old_style:
+        print("Using the NEW style of just tiles.")
         
     make_cat(field_name,start_scan,old_style=old_style)
     make_script(field_name,start_scan)
 
-def make_cat(field_name,start_scan,old_style=True):
+def make_cat(field_name,start_scan,old_style=False):
     do_tile = False
     do_strip = False
     big_region = field_name[1:3]
@@ -144,7 +147,7 @@ head = NAME    GLON      GLAT
                                 fullstring = fullstring+map_string+"\n"
                                 fullstring = fullstring+off_string+"\n"
 
-                                i += 1
+                            i += 1
                 else:
                     #Just do tiles
                     for glat2 in [-0.245]:
