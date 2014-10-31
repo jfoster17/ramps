@@ -23,8 +23,19 @@ Specifying s = 1 generates a warning error message
 since it is exactly the same thing as running the 
 original script again.
 
-python create_partial_script.py -f L10_Tile14 -s 3
+*** WARNING ***
+By default this program only makes tiles for the new-style
+method of filling our region. If you are completing the L10
+field the program assumes you will be using the old-style 
+method of filling a region. If you want to override this for
+any reason, use -o.
 
+Examples:
+python create_partial_script.py -f L10_Tile14 -s 3
+python create_partial_script.py -f L31_Tile04 -s 3
+
+
+-o : OldStyle    -- Do the old-style (L10/L30) tiles+strips
 -f : Field       -- Name of the field
 -s : StartScan   -- Number of scan to start on
 -h : Help        -- Display this help 
@@ -36,8 +47,9 @@ import numpy as np
 def main():
     field_name = None
     start_scan = None
+    old_style = False
     try:
-        opts,args = getopt.getopt(sys.argv[1:],"f:s:h")
+        opts,args = getopt.getopt(sys.argv[1:],"f:s:oh")
     except getopt.GetoptError,err:
         print(str(err))
         print(__doc__)
@@ -47,6 +59,8 @@ def main():
             field_name = a
         elif o == "-s":
             start_scan = a
+        elif o == "-o":
+            old_style = True
         elif o == "-h":
             print(__doc__)
             sys.exit(1)
@@ -71,11 +85,14 @@ def main():
         print(">>> That is the same as the original script <<<")
         print(__doc__)
         sys.exit(2)
+    
+    if "L10" in field_name:
+        old_style = True
         
-    make_cat(field_name,start_scan)
+    make_cat(field_name,start_scan,old_style=old_style)
     make_script(field_name,start_scan)
 
-def make_cat(field_name,start_scan):
+def make_cat(field_name,start_scan,old_style=True):
     do_tile = False
     do_strip = False
     big_region = field_name[1:3]
@@ -113,20 +130,35 @@ head = NAME    GLON      GLAT
                 
             i+=1
             if i == 5:
-                #Do some Strips 1 degree x 0.058 degree (7 strips)
-                #Offset would be -0.058 for best practice. Inclue 0.05 degree overlap
-                for glat2 in np.arange(0,-0.41,-0.053):
-                    for glon2 in [position]:
-                        if i == int(little_region):
-                            offglat = glat2-offset
-                            map_string = "L"+reg_name+"Strip"+str(i).zfill(2)+\
-                                        "-extra"+" "+str(glon2)+" "+str(offglat)
-                            off_string = "L"+reg_name+"StOff-extra"+str(i).zfill(2)+\
-                                        "-extra"+" "+str(glon2)+" "+str(offglat+1.0)
-                            fullstring = fullstring+map_string+"\n"
-                            fullstring = fullstring+off_string+"\n"
+                if old_style:
+                    #Do some Strips 1 degree x 0.058 degree (7 strips)
+                    #Offset would be -0.058 for best practice. Inclue 0.05 degree overlap
+                    for glat2 in np.arange(0,-0.41,-0.053):
+                        for glon2 in [position]:
+                            if i == int(little_region):
+                                offglat = glat2-offset
+                                map_string = "L"+reg_name+"Strip"+str(i).zfill(2)+\
+                                            "-extra"+" "+str(glon2)+" "+str(offglat)
+                                off_string = "L"+reg_name+"StOff-extra"+str(i).zfill(2)+\
+                                            "-extra"+" "+str(glon2)+" "+str(offglat+1.0)
+                                fullstring = fullstring+map_string+"\n"
+                                fullstring = fullstring+off_string+"\n"
 
-                        i += 1
+                                i += 1
+                else:
+                    #Just do tiles
+                    for glat2 in [-0.245]:
+                        for glon2 in np.arange(glon_max,glon_min,-0.245):
+                            if i == int(little_region):
+                                offglat = glat2-offset
+                            
+                                map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
+                                         " "+str(glon2)+" "+str(glat2)
+                                off_string = "L"+reg_name+"TOff-extra"+str(i).zfill(2)+\
+                                         " "+str(glon2)+" "+str(glat2+1.0)
+                                fullstring = fullstring+map_string+"\n"
+                                fullstring = fullstring+off_string+"\n"
+                            i += 1
     fullstring = fullstring[0:-1]
     fff = open("extra/PilotL"+reg_name+"Sources-extra.cat",'w')
     print >>fff,fullstring
