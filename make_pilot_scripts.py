@@ -5,8 +5,9 @@ Make a GBT Catalog for the Pilot Survey fields
 
 Specify a central position in galactic longitude
 The map will extend +/- 0.5 degrees in latitude
-Half the map will be done in blocks, half in stripes
-Maps are named by their central position.
+
+NEW -- Previously we did half the map in tiles and
+half in stripes. Now we do all tiles.
 
 python make_pilot_scripts.py -p 10 -s -c
 python make_pilot_scripts.py -p 29 -s -c
@@ -22,9 +23,6 @@ the catalog will mysteriously fail to load.
 -s : Scripts     -- Make scripts for this position
 -c : Catalog     -- Make a catlog and visualization
 -h : Help        -- Display this help 
-
-
-
 """
 
 import sys,os,getopt
@@ -170,7 +168,14 @@ head = NAME    GLON      GLAT
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
     i = 1
-        
+
+
+    #For historical reasons, the numbering
+    #of tiles is a little odd, with
+    # 13, 14, 15, 16
+    # 09, 10, 11, 12
+    # 01, 02, 03, 04
+    # 05, 06, 07, 08
     glon_min = position-0.375
     glon_max = position+0.375
     for glat in np.arange(-0.05,0.35,.195):
@@ -190,20 +195,23 @@ head = NAME    GLON      GLAT
             fullstring = fullstring+off_string+"\n"
             i += 1
             if i == 5:
-                #Do some Strips 1 degree x 0.058 degree (7 strips)
-                #Offset would be -0.058 for best practice. Inclue 0.05 degree overlap
-                for glat2 in np.arange(0,-0.41,-0.053):
-                    for glon2 in [position]:
-                        map_string = "L"+reg_name+"Strip"+str(i).zfill(2)+\
+                #This used to be a loop to do strips
+                #Now it does tiles like the outer loop
+                #but doing it this way preserves the
+                #same sort of numbering scheme for the pilot
+                #survey as a whole
+                for glat2 in [-0.245]:
+                    for glon2 in np.arange(glon_max,glon_min,-0.245):
+                        map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2)
-                        off_string = "L"+reg_name+"StOff"+str(i).zfill(2)+\
+                        off_string = "L"+reg_name+"TOff"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2+1.0)
                         fullstring = fullstring+map_string+"\n"
-                        rect = Rectangle((glon2-0.5,glat2-0.058/2.),1,0.058,fill=True, 
-                                         fc='blue', visible=True,alpha = 0.4)
+                        rect = Rectangle((glon2-0.125,glat2-0.1),0.25,0.20,fill=True, 
+                             fc='red', visible=True, alpha=0.4)
                         all_patches.append(rect)
-                        ax.plot(glon2,glat2,'k.')
-                        ax.text(glon2-0.05,glat2,"Strip"+str(i).zfill(2))
+                        ax.plot(glon2,glat2,'ko')
+                        ax.text(glon2-0.01,glat2+0.02,"Tile"+str(i).zfill(2))
                         fullstring = fullstring+off_string+"\n"
                         i += 1
     for patch in all_patches:
