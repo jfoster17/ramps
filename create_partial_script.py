@@ -86,7 +86,7 @@ def main():
         print(__doc__)
         sys.exit(2)
     
-    if "L10" in field_name:
+    if ("L10" in field_name) or ("L30" in field_name):
         print("Using the OLD style of tiles and strips.")
         old_style = True
     if not old_style:
