@@ -80,7 +80,7 @@ def plot_catalog(position,dir_name,reg_name,ax,fig,all_patches,color=None):
     glon_max = position+0.390
     for glat in np.arange(-0.05,0.35,.195):
         for glon in np.arange(glon_max,glon_min,-0.250):
-            rect = Rectangle((glon-0.1275,glat-0.1),0.255,0.20,fill=True, 
+            rect = Rectangle((glon-0.13,glat-0.1),0.26,0.208,fill=True, 
                              fc=color, visible=True, alpha=0.4,lw=0)
             ax.plot(glon,glat,'ko')
             ax.text(glon-0.01,glat+0.02,"Tile"+str(i).zfill(2))
@@ -89,7 +89,7 @@ def plot_catalog(position,dir_name,reg_name,ax,fig,all_patches,color=None):
             if i == 5:
                 for glat2 in [-0.245]:
                     for glon2 in np.arange(glon_max,glon_min,-0.250):
-                        rect = Rectangle((glon2-0.1275,glat2-0.1),0.255,0.20,fill=True, 
+                        rect = Rectangle((glon2-0.13,glat2-0.1),0.26,0.208,fill=True, 
                              fc=color, visible=True, alpha=0.4,lw=0)
                         all_patches.append(rect)
                         ax.plot(glon2,glat2,'ko')
