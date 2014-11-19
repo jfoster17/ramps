@@ -25,9 +25,9 @@ Balance()
 Track(off, None, 30.0, "1")
 mapTarget='L29_Tile14'                # The map center is often not the peak location
 RALongMap( mapTarget, 
-	   Offset("Galactic", 0.25, 0.0), # This is a galactic coordinate map
-	   Offset("Galactic", 0.0, 0.20), 
+	   Offset("Galactic", 0.26, 0.0), # This is a galactic coordinate map
+	   Offset("Galactic", 0.0, 0.208), 
 	   Offset("Galactic", 0.0, 0.008), 
-	   120.0, "1")
+	   125.0, "1")
 Track( off, None, 30.0, "1")
 

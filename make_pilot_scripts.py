@@ -186,17 +186,17 @@ head = NAME    GLON      GLAT
     # 09, 10, 11, 12
     # 01, 02, 03, 04
     # 05, 06, 07, 08
-    glon_min = position-0.375
-    glon_max = position+0.375
+    glon_min = position-0.390
+    glon_max = position+0.390
     for glat in np.arange(-0.05,0.35,.195):
-        for glon in np.arange(glon_max,glon_min,-0.245):
+        for glon in np.arange(glon_max,glon_min,-0.250):
             map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                          " "+str(glon)+" "+str(glat)
             off_string = "L"+reg_name+"TOFF"+str(i).zfill(2)+\
                          " "+str(glon)+" "+str(glat+1.0)
             fullstring = fullstring+map_string+"\n"
-            rect = Rectangle((glon-0.125,glat-0.1),0.25,0.20,fill=True, 
-                             fc='red', visible=True, alpha=0.4)
+            rect = Rectangle((glon-0.13,glat-0.1),0.26,0.208,fill=True, 
+                             fc='red', visible=True, alpha=0.4,lw=0)
             ax.plot(glon,glat,'ko')
             ax.text(glon-0.01,glat+0.02,"Tile"+str(i).zfill(2))
             #ax.add_artist(rect)
@@ -211,14 +211,14 @@ head = NAME    GLON      GLAT
                 #same sort of numbering scheme for the pilot
                 #survey as a whole
                 for glat2 in [-0.245]:
-                    for glon2 in np.arange(glon_max,glon_min,-0.245):
+                    for glon2 in np.arange(glon_max,glon_min,-0.250):
                         map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2)
                         off_string = "L"+reg_name+"TOff"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2+1.0)
                         fullstring = fullstring+map_string+"\n"
-                        rect = Rectangle((glon2-0.125,glat2-0.1),0.25,0.20,fill=True, 
-                             fc='red', visible=True, alpha=0.4)
+                        rect = Rectangle((glon2-0.13,glat2-0.1),0.26,0.208,fill=True, 
+                             fc='red', visible=True, alpha=0.4,lw=0)
                         all_patches.append(rect)
                         ax.plot(glon2,glat2,'ko')
                         ax.text(glon2-0.01,glat2+0.02,"Tile"+str(i).zfill(2))
@@ -273,10 +273,10 @@ Balance()
 Track(off, None, 30.0, "1")
 mapTarget='${map_pos}'                # The map center is often not the peak location
 RALongMap( mapTarget, 
-	   Offset("Galactic", 0.25, 0.0), # This is a galactic coordinate map
-	   Offset("Galactic", 0.0, 0.20), 
+	   Offset("Galactic", 0.26, 0.0), # This is a galactic coordinate map
+	   Offset("Galactic", 0.0, 0.208), 
 	   Offset("Galactic", 0.0, 0.008), 
-	   120.0, "1")
+	   125.0, "1")
 Track( off, None, 30.0, "1")
 """
      

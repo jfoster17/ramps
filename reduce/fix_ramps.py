@@ -52,16 +52,16 @@ def main():
         p.start()
     for p in ps:
         p.join()
-    recombine(numcores)
+    recombine(numcores,output_file=output_file)
     
     
-def recombine(numparts):
+def recombine(numparts,output_file="test_final.fits"):
     indata = []
     for n in range(numparts):
         d = pyfits.getdata("temp"+str(n)+".fits")
         indata.append(d)
     final = np.dstack(indata)
-    pyfits.writeto("test_final.fits",final,clobber=True)
+    pyfits.writeto(output_file,final,clobber=True)
     
 def rolling_window(a,window):
     """
@@ -75,6 +75,9 @@ def rolling_window(a,window):
     return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
 
 def naive_std(orig_spec,w):
+    """
+    This is very slow
+    """
     stds = orig_spec.copy()
     ss = orig_spec.size
     for x in np.arange(ss):
@@ -88,8 +91,22 @@ def do_chunk(num,data):
     ya =  np.apply_along_axis(baseline_and_deglitch,0,data)
     pyfits.writeto("temp"+str(num)+".fits",ya,clobber=True)
 
-def baseline_and_deglitch(orig_spec):
-    ww = 300
+def baseline_and_deglitch(orig_spec,
+                          ww=300,
+                          sigma_cut=4.,
+                          poly_n=2.,
+                          filt_width=7.):
+    """
+    (1) Calculate a rolling standard deviation (s) in a window
+        of 2*ww pixels
+    (2) Mask out portions of the spectrum where s is more than
+        sigma_cut times the median value for s.
+    (3) Fit and subtract-out a polynomial of order poly_n 
+        (currently hard-coded to 2)
+    (4) Median filter (with a filter width of filt_width)
+        to remove the single-channel spikes seen.
+    """
+    
     ya = rolling_window(orig_spec,ww*2)
     #Calculate standard dev and pad the output
     stds = my_pad.pad(np.std(ya,-1),(ww-1,ww),mode='edge')
@@ -99,13 +116,13 @@ def baseline_and_deglitch(orig_spec):
     sigma_x_bar = med_std/np.sqrt(ww)
     sigma_s = (1./np.sqrt(2.))*sigma_x_bar
     #Mask out signal for baseline
-    masked = ma.masked_where(stds > med_std+4*sigma_s,orig_spec)
+    masked = ma.masked_where(stds > med_std+sigma_cut*sigma_s,orig_spec)
     xx = np.arange(masked.size)
     ya = ma.polyfit(xx,masked,2)
     baseline = ya[0]*xx**2+ya[1]*xx+ya[2]
     sub = orig_spec-baseline
     #Filter out glitches in baseline-subtracted version
-    final = im.median_filter(sub,7)[::7]
+    final = im.median_filter(sub,filt_width)[::filt_width]
     return(final)
 
 if __name__ == '__main__':
