@@ -93,6 +93,9 @@ def make_scripts(position,dir_name,reg_name):
     if position == 10:
         point_source = "1833-2103"
         onoff_source = "L10OnOff"
+    elif position == 28:
+        point_source = "1751+0939"
+        onoff_source = "L28OnOff"
     elif position == 29:
         point_source = "1751+0939"
         onoff_source = "L29OnOff"
@@ -102,10 +105,15 @@ def make_scripts(position,dir_name,reg_name):
     elif position == 31:
         point_source = "1751+0939"
         onoff_source = "L31OnOff"
+    elif position == 32:
+        point_source = "1751+0939"
+        onoff_source = "L32OnOff"
     elif position == 39:
         point_source = "1850-0001"
         onoff_source = "L39OnOff"
-
+    elif position == 38:
+        point_source = "1850-0001"
+        onoff_source = "L38OnOff"
     
     #Make a separate peak script
     d = {"pointing_pos":point_source,"onoff_pos":onoff_source,
@@ -160,11 +168,13 @@ head = NAME    GLON      GLAT
     #I need to look up these points as the brightest points
     #within each region from Bolocam
     fullstring +=  "L10OnOff    10.1659      -0.3555\n"
+    fullstring +=  "L28OnOff    28.1998      -0.0503\n"
     fullstring +=  "L29OnOff    29.9356      -0.0587\n"
     fullstring +=  "L30OnOff    29.9617      -0.0160\n"
     fullstring +=  "L39OnOff    37.8765      -0.3995\n"
     fullstring +=  "L31OnOff    31.4125      +0.3075\n"
-    
+    fullstring +=  "L32OnOff    32.0436      +0.0609\n"
+    fullstring +=  "L38OnOff    37.7655      -0.2161\n"
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
     i = 1

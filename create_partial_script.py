@@ -118,10 +118,10 @@ def make_cat(field_name,start_scan,old_style=False):
 coordmode=GALACTIC
 head = NAME    GLON      GLAT
 """
-    glon_min = position-0.375
-    glon_max = position+0.375
+    glon_min = position-0.390
+    glon_max = position+0.390
     for glat in np.arange(-0.05,0.35,.195):
-        for glon in np.arange(glon_max,glon_min,-0.245):
+        for glon in np.arange(glon_max,glon_min,-0.250):
             if i == int(little_region):
                 offglat = glat-offset
                 map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
@@ -151,7 +151,7 @@ head = NAME    GLON      GLAT
                 else:
                     #Just do tiles
                     for glat2 in [-0.245]:
-                        for glon2 in np.arange(glon_max,glon_min,-0.245):
+                        for glon2 in np.arange(glon_max,glon_min,-0.250):
                             if i == int(little_region):
                                 offglat = glat2-offset
                             
@@ -179,7 +179,7 @@ def make_script(field_name,start_scan):
     
     if "Tile" in field_name:
         do_tile=True
-        glat_height = 0.20
+        glat_height = 0.208
     elif "Strip" in field_name:
         do_strip=True
         glat_height = 0.058
@@ -242,10 +242,10 @@ Balance()
 Track(off, None, 30.0, "1")
 mapTarget='${map_pos}'                # The map center is often not the peak location
 RALongMap( mapTarget, 
-	   Offset("Galactic", 0.25, 0.0), # This is a galactic coordinate map
+	   Offset("Galactic", 0.26, 0.0), # This is a galactic coordinate map
 	   Offset("Galactic", 0.0, ${glat_height}), 
 	   Offset("Galactic", 0.0, 0.008), 
-	   120.0, "1")
+	   125.0, "1")
 Track( off, None, 30.0, "1")
 """
  
