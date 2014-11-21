@@ -257,7 +257,7 @@ def sum_over_signal(orig_spec,nsig=3.):
     """
     ww = 50
     ya = rolling_window(orig_spec,ww*2)
-    stds = np.lib.pad(np.std(ya,-1),(ww-1,ww),mode='edge')
+    stds = my_pad.pad(np.std(ya,-1),(ww-1,ww),mode='edge')
     med_std = np.median(stds)
     std_std = np.std(stds)
     sigma_x_bar = med_std/np.sqrt(ww)
