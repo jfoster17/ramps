@@ -6,7 +6,6 @@ of an n-dimensional array.
 from __future__ import division, absolute_import, print_function
 
 import numpy as np
-from numpy.compat import long
 
 __all__ = ['pad']
 
@@ -1032,11 +1031,11 @@ def _normalize_shape(narray, shape):
                 fmt = "Unable to create correctly shaped tuple from %s"
                 raise ValueError(fmt % (normshp,))
     elif (isinstance(shape, (tuple, list))
-            and isinstance(shape[0], (int, float, long))
+            and isinstance(shape[0], (int, float))
             and len(shape) == 1):
         normshp = ((shape[0], shape[0]), ) * shapelen
     elif (isinstance(shape, (tuple, list))
-            and isinstance(shape[0], (int, float, long))
+            and isinstance(shape[0], (int, float))
             and len(shape) == 2):
         normshp = (shape, ) * shapelen
     if normshp is None:

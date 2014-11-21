@@ -27,7 +27,7 @@ python fits_ramps_parallel.py
 
 
 import sys,os,getopt
-import pyfits
+import astropy.io.fits as pyfits
 import scipy.ndimage as im
 import numpy as np
 import numpy.ma as ma
@@ -189,6 +189,7 @@ def baseline_and_deglitch(orig_spec,
     #For speed, but mostly for memory
     masked = im.median_filter(masked,filt_width)[::filt_width]
     xx = np.arange(masked.size)
+    xx = xx.astype(np.float32) #To avoid bug with ma.polyfit in np1.6
     npoly = find_best_baseline(masked,xx)
     basepoly = fit_baseline(masked,xx,ndeg=npoly)
     #Some kludgy code to refactor the baseline polynomial to
