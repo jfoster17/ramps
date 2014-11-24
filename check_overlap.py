@@ -15,12 +15,13 @@ def check_overlap():
     position = 29.
     dir_name = "pilot_29_dir"
     reg_name = "29_"
-    plot_catalog(float(position),dir_name,reg_name,ax,fig,all_patches,color='blue')
+    plot_catalog_old(float(position),dir_name,reg_name,ax,fig,all_patches,color='blue')
     position = 30.
     dir_name = "pilot_30_dir"
     reg_name = "30_"
     all_patches = []
-    plot_catalog_old(float(position),dir_name,reg_name,ax,fig,all_patches,color='red')
+    plot_catalog(float(position),dir_name,reg_name,ax,fig,all_patches,color='red')
+    fig.savefig("Overlap_Check_old.pdf")
 
 
     fig = plt.figure()
@@ -80,7 +81,6 @@ def plot_catalog_old(position,dir_name,reg_name,ax,fig,all_patches,color=None):
     ax.set_ylim(-0.5,0.5)
     plt.ylabel("GLat (deg)")
     plt.xlabel("GLon (deg)")
-    fig.savefig("Overlap_Check_old.pdf")
 
 def plot_catalog(position,dir_name,reg_name,ax,fig,all_patches,color=None):
     """ Make a catalog file describing the centers of all maps. """
