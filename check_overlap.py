@@ -15,7 +15,7 @@ def check_overlap():
     position = 29.
     dir_name = "pilot_29_dir"
     reg_name = "29_"
-    plot_catalog_old(float(position),dir_name,reg_name,ax,fig,all_patches,color='blue')
+    plot_catalog(float(position),dir_name,reg_name,ax,fig,all_patches,color='blue')
     position = 30.
     dir_name = "pilot_30_dir"
     reg_name = "30_"
@@ -63,6 +63,17 @@ def plot_catalog_old(position,dir_name,reg_name,ax,fig,all_patches,color=None):
                         ax.plot(glon2,glat2,'ko')
                         ax.text(glon2-0.01,glat2+0.02,"Tile"+str(i).zfill(2))
                         i += 1
+    #Rectangle patches are defined from lower-left, not center?
+    fillin_width = 0.048
+    fillin_height = 0.81
+    rect = Rectangle((position-0.5-fillin_width/2.,0.05-fillin_height/2.),fillin_width,fillin_height,fill=True, 
+                     fc='green', visible=True, alpha=0.4,lw=0)
+    all_patches.append(rect)
+    
+    rect = Rectangle((position+0.5-fillin_width/2.,0.05-fillin_height/2.),fillin_width,fillin_height,fill=True, 
+                     fc='green', visible=True, alpha=0.4,lw=0)
+    all_patches.append(rect)
+    
     for patch in all_patches:
         ax.add_patch(patch)
     ax.set_xlim(30.6,28.4)
@@ -76,8 +87,8 @@ def plot_catalog(position,dir_name,reg_name,ax,fig,all_patches,color=None):
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
     i = 1
-    glon_min = position-0.390
-    glon_max = position+0.390
+    glon_min = position-0.410
+    glon_max = position+0.375
     for glat in np.arange(-0.05,0.35,.195):
         for glon in np.arange(glon_max,glon_min,-0.250):
             rect = Rectangle((glon-0.13,glat-0.1),0.26,0.208,fill=True, 
@@ -95,6 +106,7 @@ def plot_catalog(position,dir_name,reg_name,ax,fig,all_patches,color=None):
                         ax.plot(glon2,glat2,'ko')
                         ax.text(glon2-0.01,glat2+0.02,"Tile"+str(i).zfill(2))
                         i += 1
+    
     for patch in all_patches:
         #print("Adding patch")
         ax.add_patch(patch)

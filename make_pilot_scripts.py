@@ -188,7 +188,7 @@ head = NAME    GLON      GLAT
     # 05, 06, 07, 08
     glon_min = position-0.410
     glon_max = position+0.375
-    for glat in np.arange(-0.05,0.35,.195):
+    for glat in np.arange(-0.10,0.35,.195):
         for glon in np.arange(glon_max,glon_min,-0.250):
             map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                          " "+str(glon)+" "+str(glat)
