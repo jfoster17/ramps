@@ -114,6 +114,17 @@ def make_scripts(position,dir_name,reg_name):
     elif position == 38:
         point_source = "1850-0001"
         onoff_source = "L38OnOff"
+    elif position == 43:
+        point_source = "1850-0001"
+        onoff_source = "L43OnOff"
+    elif position == 45:
+        point_source = "1850-0001"
+        onoff_source = "L45OnOff"
+    elif position == 47:
+        point_source = "1850-0001"
+        onoff_source = "L47OnOff"
+
+
     
     #Make a separate peak script
     d = {"pointing_pos":point_source,"onoff_pos":onoff_source,
@@ -175,6 +186,10 @@ head = NAME    GLON      GLAT
     fullstring +=  "L31OnOff    31.4125      +0.3075\n"
     fullstring +=  "L32OnOff    32.0436      +0.0609\n"
     fullstring +=  "L38OnOff    37.7655      -0.2161\n"
+    fullstring +=  "L43OnOff    43.1649      +0.0172\n"
+    fullstring +=  "L45OnOff    45.4593      +0.0470\n"
+    fullstring +=  "L47OnOff    47.0443      +0.2504\n"
+    
     #Do some tiles (0.25 x 0.20)
     #Inclue 0.05 degree overlap
     i = 1
@@ -210,7 +225,7 @@ head = NAME    GLON      GLAT
                 #but doing it this way preserves the
                 #same sort of numbering scheme for the pilot
                 #survey as a whole
-                for glat2 in [-0.245]:
+                for glat2 in [-0.245-0.05]:
                     for glon2 in np.arange(glon_max,glon_min,-0.250):
                         map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                                      " "+str(glon2)+" "+str(glat2)

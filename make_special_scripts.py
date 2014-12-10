@@ -69,6 +69,9 @@ def main():
         glat_min = -0.2
         glat_max = 0.3
     
+    if float(position) == 
+    
+    
     if do_catalog:
         make_catalog(glon_min,glon_max,glat_min,glat_max,dir_name,reg_name)
     #if do_scripts:
@@ -180,7 +183,7 @@ head = NAME    GLON      GLAT
     # 05, 06, 07, 08
     glon_min = glon_min
     glon_max = glon_max
-    for glat in np.arange(glat_min,glat_max,.195):
+    for glat in np.arange(glat_min+0.05,glat_max,.195):
         for glon in np.arange(glon_max,glon_min,-0.250):
             map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
                          " "+str(glon)+" "+str(glat)
@@ -190,7 +193,7 @@ head = NAME    GLON      GLAT
             rect = Rectangle((glon-0.13,glat-0.1),0.26,0.208,fill=True, 
                              fc='red', visible=True, alpha=0.4,lw=0)
             ax.plot(glon,glat,'ko')
-            ax.text(glon-0.01,glat+0.02,"Tile"+str(i).zfill(2))
+            ax.text(glon-0.01,glat+0.02,"T"+str(i).zfill(2),fontsize='small')
             #ax.add_artist(rect)
             #plt.show()                
             all_patches.append(rect)
