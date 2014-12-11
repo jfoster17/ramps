@@ -150,7 +150,7 @@ head = NAME    GLON      GLAT
                             i += 1
                 else:
                     #Just do tiles
-                    for glat2 in [-0.245]:
+                    for glat2 in [-0.245-0.05]:
                         for glon2 in np.arange(glon_max,glon_min,-0.250):
                             if i == int(little_region):
                                 offglat = glat2-offset
