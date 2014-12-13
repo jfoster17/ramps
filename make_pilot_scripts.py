@@ -11,8 +11,6 @@ half in stripes. Now we do all tiles.
 
 python make_pilot_scripts.py -p 10 -s -c
 python make_pilot_scripts.py -p 29 -s -c
-python make_pilot_scripts.py -p 39 -s -c
-python make_pilot_scripts.py -p 30 -s -c
 
 To add new fields/positions this script must be edited by hand
 Two changes are required:
@@ -180,7 +178,7 @@ def make_scripts(position,dir_name,reg_name):
             gg= open(dir_name+"/map"+name+".py",'w')
             print >>gg,output
             gg.close()
-            
+    os.chmod(dir_name,0777)
             
     
 def make_catalog(position,dir_name,reg_name):
@@ -196,6 +194,9 @@ head = NAME    GLON      GLAT
     #I need to look up these points as the brightest points
     #within each region from Bolocam
     fullstring +=  "L10OnOff    10.1659      -0.3555\n"
+    fullstring +=  "L22OnOff    21.8764      +0.0053\n"
+    fullstring +=  "L23OnOff    23.4354      -0.1852\n"
+    fullstring +=  "L24OnOff    24.3292      +0.1452\n"
     fullstring +=  "L28OnOff    28.1998      -0.0503\n"
     fullstring +=  "L29OnOff    29.9356      -0.0587\n"
     fullstring +=  "L30OnOff    29.9617      -0.0160\n"
