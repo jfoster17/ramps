@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-Make a GBT Catalog for the Pilot Survey fields
+Make catalogs and scripts for RAMPS Survey fields
 
 Specify a central position in galactic longitude
 The map will extend +/- 0.5 degrees in latitude
@@ -14,9 +14,16 @@ python make_pilot_scripts.py -p 29 -s -c
 python make_pilot_scripts.py -p 39 -s -c
 python make_pilot_scripts.py -p 30 -s -c
 
-WHEN MAKING A NEW DIRECTORY
-You must also chmod a+x that directory or
-the catalog will mysteriously fail to load.
+To add new fields/positions this script must be edited by hand
+Two changes are required:
+make_scripts()
+needs to be edited to put in the apporiate pointing source
+make_catalog()
+needs to be edited to put in a bright point in the field
+that will be used for the on-off check. I use the brightest
+spot in the Bolocam Galactic Plane Survey image. 
+
+In both cases, just copy the existing format for the entries.
 
 -d : Directory   -- Name of directory into which to save files
 -p : Position    -- Central position of map in Galactic longitude
