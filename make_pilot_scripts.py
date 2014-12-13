@@ -17,7 +17,8 @@ python make_pilot_scripts.py -p 30 -s -c
 To add new fields/positions this script must be edited by hand
 Two changes are required:
 make_scripts()
-needs to be edited to put in the apporiate pointing source
+needs to be edited to put in the apporiate pointing source.
+Consult the catalog or check K-band-points.pdf
 make_catalog()
 needs to be edited to put in a bright point in the field
 that will be used for the on-off check. I use the brightest
@@ -100,6 +101,15 @@ def make_scripts(position,dir_name,reg_name):
     if position == 10:
         point_source = "1833-2103"
         onoff_source = "L10OnOff"
+    elif position == 22:
+        point_source = "1743-0350"
+        onoff_source = "L22OnOff"
+    elif position == 23:
+        point_source = "1743-0350"
+        onoff_source = "L23OnOff"
+    elif position == 24:
+        point_source = "1743-0350"
+        onoff_source = "L24OnOff"
     elif position == 28:
         point_source = "1751+0939"
         onoff_source = "L28OnOff"
