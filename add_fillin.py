@@ -142,9 +142,9 @@ Balance()
 Track(off, None, 30.0, "1")
 mapTarget='${map_pos}'                # The map center is often not the peak location
 DecLatMap( mapTarget, 
-	   Offset("Galactic", 0.81, 0.0), # This is a galactic coordinate map
-	   Offset("Galactic", 0.0, 0.048), 
-	   Offset("Galactic", 0.0, 0.008), 
+	   Offset("Galactic", 0.048, 0.0), # This is a galactic coordinate map
+	   Offset("Galactic", 0.0, 0.81), 
+	   Offset("Galactic", 0.008, 0.008), 
 	   390.0, "1")
 Track( off, None, 30.0, "1")
 """
