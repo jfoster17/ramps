@@ -1,6 +1,7 @@
 
 #RAMPS Astrid script using the KFPA/VEGAS
 #HISTORY
+#Nov   20, 2015 (JBF) Increased size of tiles for better overlap
 #Oct    5, 2015 (JBF) Comment out blanking values (no longer needed)
 #April 15, 2015 (JBF) Set blanking values manually to fix a VEGAS problem 
 #March 10, 2014 (JBF) Initial Version
