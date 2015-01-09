@@ -163,19 +163,21 @@ head = NAME    GLON      GLAT
                                 fullstring = fullstring+off_string+"\n"
                             i += 1
     fullstring = fullstring[0:-1]
-    fff = open("extra/PilotL"+reg_name+"Sources-extra.cat",'w')
+    filename = "new-extra/PilotL"+reg_name+"Sources-extra.cat"
+    fff = open(filename,'w')
     print >>fff,fullstring
     fff.close()
-    
+    os.chmod('new-extra',0777)
 
 
 def make_script(field_name,start_scan):
     reg_name = field_name[0:3]
-    ff = open('extra/Pilot'+reg_name+'Sources-extra.cat','r')
+    filename = 'new-extra/Pilot'+reg_name+'Sources-extra.cat'
+    ff = open(filename,'r')
     all_lines = ff.readlines()
     tile_template = Template(tt)
     strip_template = Template(ts)
-    dir_name = 'extra'
+    dir_name = 'new-extra'
     
     if "Tile" in field_name:
         do_tile=True
@@ -194,7 +196,8 @@ def make_script(field_name,start_scan):
                  "map_pos":name,"reg_name":reg_name,
                  "dir_name":dir_name,"glat_height":glat_height}
             output = tile_template.substitute(d)
-            gg= open(dir_name+"/map"+name+".py",'w')
+            scriptfilename = dir_name+"/map"+name+".py"
+            gg= open(scriptfilename,'w')
             print >>gg,output
             gg.close()
             
@@ -205,10 +208,11 @@ def make_script(field_name,start_scan):
                  "map_pos":name,"reg_name":reg_name,
                  "dir_name":dir_name,"glat_height":glat_height}
             output = strip_template.substitute(d)
-            gg= open(dir_name+"/map"+name+".py",'w')
+            scriptfilename = dir_name+"/map"+name+".py"
+            gg= open(scriptfilename,'w')
             print >>gg,output
             gg.close()
-    
+    os.chmod(dir_name,0777)
     
 catalog_template_1 = '''#RAMPS tile/stripe list
 head = name coordmode GLON GLAT velocity

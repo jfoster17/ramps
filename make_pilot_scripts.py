@@ -135,6 +135,9 @@ def make_scripts(position,dir_name,reg_name):
     elif position == 45:
         point_source = "1850-0001"
         onoff_source = "L45OnOff"
+    elif position == 46:
+        point_source = "1850-0001"
+        onoff_source = "L46OnOff"
     elif position == 47:
         point_source = "1850-0001"
         onoff_source = "L47OnOff"
@@ -206,6 +209,7 @@ head = NAME    GLON      GLAT
     fullstring +=  "L38OnOff    37.7655      -0.2161\n"
     fullstring +=  "L43OnOff    43.1649      +0.0172\n"
     fullstring +=  "L45OnOff    45.4593      +0.0470\n"
+    fullstring +=  "L46OnOff    45.4552      +0.0613\n"
     fullstring +=  "L47OnOff    47.0443      +0.2504\n"
     
     #Do some tiles (0.25 x 0.20)
