@@ -156,18 +156,22 @@ head = NAME    GLON      GLAT
                                 offglat = glat2-offset
                             
                                 map_string = "L"+reg_name+"Tile"+str(i).zfill(2)+\
-                                         " "+str(glon2)+" "+str(glat2)
-                                off_string = "L"+reg_name+"TOff-extra"+str(i).zfill(2)+\
-                                         " "+str(glon2)+" "+str(glat2+1.0)
+                                         "-extra"+" "+str(glon2)+" "+str(glat2)
+                                off_string = "L"+reg_name+"TOff"+str(i).zfill(2)+\
+                                         "-extra"+" "+str(glon2)+" "+str(glat2+1.0)
                                 fullstring = fullstring+map_string+"\n"
                                 fullstring = fullstring+off_string+"\n"
                             i += 1
     fullstring = fullstring[0:-1]
     filename = "new-extra/PilotL"+reg_name+"Sources-extra.cat"
+    try:
+        os.remove(filename)
+    except OSError:
+        pass #If the file does not already exist
     fff = open(filename,'w')
     print >>fff,fullstring
     fff.close()
-    os.chmod('new-extra',0777)
+    os.chmod(filename,0777)
 
 
 def make_script(field_name,start_scan):
@@ -197,6 +201,10 @@ def make_script(field_name,start_scan):
                  "dir_name":dir_name,"glat_height":glat_height}
             output = tile_template.substitute(d)
             scriptfilename = dir_name+"/map"+name+".py"
+            try:
+                os.remove(scriptfilename)
+            except OSError:
+                pass #If the file does not exist
             gg= open(scriptfilename,'w')
             print >>gg,output
             gg.close()
@@ -209,10 +217,14 @@ def make_script(field_name,start_scan):
                  "dir_name":dir_name,"glat_height":glat_height}
             output = strip_template.substitute(d)
             scriptfilename = dir_name+"/map"+name+".py"
+            try:
+                os.remove(scriptfilename)
+            except OSError:
+                pass #If the file does not exist
             gg= open(scriptfilename,'w')
             print >>gg,output
             gg.close()
-    os.chmod(dir_name,0777)
+    os.chmod(scriptfilename,0777)
     
 catalog_template_1 = '''#RAMPS tile/stripe list
 head = name coordmode GLON GLAT velocity
