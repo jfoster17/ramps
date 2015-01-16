@@ -96,13 +96,15 @@ def main():
     make_script(field_name,start_scan)
 
 def make_cat(field_name,start_scan,old_style=False):
+    print("Making new catalog...")
     do_tile = False
     do_strip = False
     big_region = field_name[1:3]
     reg_name = field_name[1:3]
-    print(big_region)
+
+    print("For field L"+str(big_region))
     little_region = field_name[-2:]
-    print(little_region)
+    print("and tile/region #"+str(little_region))
     if "Tile" in field_name:
         do_tile=True
     elif "Strip" in field_name:
@@ -175,6 +177,7 @@ head = NAME    GLON      GLAT
 
 
 def make_script(field_name,start_scan):
+    print("Making observing scripts...")
     reg_name = field_name[0:3]
     filename = 'new-extra/Pilot'+reg_name+'Sources-extra.cat'
     ff = open(filename,'r')
@@ -225,7 +228,9 @@ def make_script(field_name,start_scan):
             print >>gg,output
             gg.close()
     os.chmod(scriptfilename,0777)
-    
+    print("The new observing script is named "+scriptfilename)
+    print("and can be found in the new-extra/ directory.")
+
 catalog_template_1 = '''#RAMPS tile/stripe list
 head = name coordmode GLON GLAT velocity
 '''     
