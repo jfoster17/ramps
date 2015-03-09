@@ -217,8 +217,8 @@ def downsample_header(h,filter_width=7):
     baseline_and_deglitch
     """
     
-    h['CDELT3'] = h['CDELT3']*filter_width
-    h['CRVAL3'] = h['CRVAL3']/filter_width
+    h['CDELT3'] = h['CDELT3']*float(filter_width)
+    h['CRPIX3'] = h['CRPIX3']/float(filter_width)
     return(h)
 
 def strip_header(h,n):
